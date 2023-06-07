@@ -1,0 +1,8 @@
+pytest~=7.2.0
+self~=2020.12.3
+urllib3~=1.26.12
+datetime~=4.9
+allure-pytest
+jsonschema
+docker
+playwright~=1.32.1
