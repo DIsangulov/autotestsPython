@@ -1,20 +1,24 @@
-# ________ constants __________
-# region
-import time
+import os
+
+import allure
 
 from pages.UI.Auth.auth_page import AuthPage
 
-link = "https://10.0.5.27"
-
-
+# ________ constants __________
+# region
+link = os.environ.get('TARGET_URL', "https://10.0.5.27")
 # endregion
 # ________ constants __________
 
+
+@allure.suite("Страница авторизации")
 class TestAuth:
-
+    @allure.title("Авторизация, позитивный кейс")
     def test_valid_auth(self, browser):
-        page = AuthPage(browser, link)
-        page.open()
-        page.enter_as_user()
-        page.should_enter_be_successful()
-
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
