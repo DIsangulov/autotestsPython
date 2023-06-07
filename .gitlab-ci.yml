@@ -34,7 +34,8 @@ history_job: # Название job
   image: registry.ngrsoftlab.ru:8888/storytel
 
   script:
-    - curl -v --location -o artifacts.zip "https://gitlab.ngrsoftlab.ru/api/v4/projects/249/jobs/artifacts/master/download?job=run_tests_ui&job_token=$CI_JOB_TOKEN"  # С помощью api гитлаба скачиваем файлы из job, который будет указан ниже.
+    - curl --location --output artifacts.zip "https://gitlab.ngrsoftlab.ru/api/v4/projects/249/jobs/artifacts/master/download?job=pages&job_token=$CI_JOB_TOKEN"  # С помощью api гитлаба скачиваем файлы из job, который будет указан ниже.
+    - cat artifacts.zip
     - apk add unzip # Образ, используемый в этом шаге по умолчанию не имеет утилиты unzip, по этой причине мы добавляем её в контейнер
     - unzip artifacts.zip # Распаковываем файлы
     - chmod -R 777 public # Даем права любые манипуляции с содержимым
