@@ -1,0 +1,17 @@
+from pages.Helpers.base_page import BasePage
+from resources.locators import AuthLocators, MainLocators
+
+login = 'admin'
+password = '1q2w3e4r5t'
+
+
+class AuthPage(BasePage):
+
+    def enter_as_user(self):
+        self.page.fill(AuthLocators.LOGIN_INPUT, login)
+        self.page.fill(AuthLocators.PAS_INPUT, password)
+        self.page.click(AuthLocators.ENTER_BUT)
+
+    def should_enter_be_successful(self):
+        assert self.page.wait_for_selector(MainLocators.LOGO_LEFT).is_visible()
+
