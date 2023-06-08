@@ -23,7 +23,7 @@ class TestAuth:
         with allure.step("Проверяем что авторизация прошла успешно"):
             step.should_enter_be_successful()
 
-    @allure.title("Авторизация, позитивный кейс")
+    @allure.title("Выход из системы")
     def test_logout(self, browser):
         step = AuthPage(browser, link)
         with allure.step("Нажимаем на кнопку Выход"):
