@@ -22,3 +22,14 @@ class TestAuth:
             step.enter_as_user()
         with allure.step("Проверяем что авторизация прошла успешно"):
             step.should_enter_be_successful()
+
+    @allure.title("Авторизация, позитивный кейс")
+    def test_logout(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Нажимаем на кнопку Выход"):
+            step.log_out()
+        with allure.step("Выход произведен успешно"):
+            step.shold_log_out_be_successful()
+
+
+
