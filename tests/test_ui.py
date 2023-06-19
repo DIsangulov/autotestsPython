@@ -6,6 +6,7 @@ import pytest
 
 from pages.UI._0_Auth.auth_page import AuthPage
 from pages.UI._12_Logging.session_log import SessionLog
+from pages.UI._2_Device_Management.device_groups import DeviceGroups
 
 # ________ constants __________
 # region
@@ -81,3 +82,26 @@ class TestScenariosPimi:
             step.click_play_session()
         with allure.step("Проверка что вопроизведение сессии запущенно"):
             step.should_play_session_run()
+
+
+@allure.suite("Настройка политик устройств")
+class TestConfiguringDevicePolicies:
+    @allure.title("Группы устройств - Создание группы устройств")
+    def test_creating_device_group(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+        step = DeviceGroups(browser, link)
+        with allure.step("Переходим в Управление устройствами -> Группы устройств"):
+            step.open_device_groups()
+        with allure.step("Добавляем новую группу"):
+            step.add_new_group("test1")
+        with allure.step("Кликаем ПКМ по созданной группе и нажимаем удалить"):
+            step.delete_new_group("test1")
+
+
+
