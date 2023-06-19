@@ -15,7 +15,7 @@ link = os.environ.get('TARGET_URL', "https://10.0.5.27")
 # endregion
 # ________ constants __________
 
-@allure.suite("Страница авторизации")
+@allure.suite("Проверка доступности веб-интерфейса")
 class TestAuth:
     @allure.title("Авторизация, позитивный кейс")
     def test_valid_auth(self, browser):
