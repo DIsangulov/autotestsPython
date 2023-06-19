@@ -1,3 +1,5 @@
+import time
+
 from pages.Helpers.base_page import BasePage
 from resources.locators import LoggingLocators, MainLocators
 
@@ -24,5 +26,13 @@ class SessionLog(BasePage):
             assert self.page.locator(LoggingLocators.TEXT_AREA) != ""
         except:
             print("У данной сессии детали не найдены, но модальное окно открылось")
+
+    def click_play_session(self):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(LoggingLocators.SESSION_OPTIONS).click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Воспроизвести сессию").click()
+
+    def should_play_session_run(self):
+        with self.page.context.expect_page() as p:
+            assert p.value.locator("#play-pause").is_enabled(), "Ошибка воспроизведения"
 
 
