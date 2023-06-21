@@ -18,7 +18,7 @@ link = os.environ.get('TARGET_URL', "https://10.0.5.27")
 
 # endregion
 # ________ constants __________
-@pytest.mark.skip
+
 @allure.suite("Проверка доступности веб-интерфейса")
 class TestAuth:
     @allure.title("Авторизация, позитивный кейс")
@@ -45,7 +45,7 @@ class TestAuth:
         with allure.step("Выход произведен успешно"):
             step.shold_log_out_be_successful()
 
-@pytest.mark.skip
+
 @allure.suite("Страница 'Определение пользователя'")
 class TestUser:
     @allure.title("Создание пользователя, позитивный кейс")
@@ -67,7 +67,6 @@ class TestUser:
             step.search_user("autotest_user")
         with allure.step("Проверяем, что пользователь создан успешно"):
             step.should_create_user_be_successful("autotest_user")
-
 
 
 @allure.suite("Страница 'Определение пользователя'")
@@ -95,7 +94,6 @@ class TestUser:
 
 @allure.suite("Сценарные проверки по ПиМИ")
 class TestScenariosPimi:
-    @pytest.mark.skip
     @allure.title("Проверка показа деталей")
     def test_checking_details(self, browser):
         step = AuthPage(browser, link)
@@ -115,7 +113,6 @@ class TestScenariosPimi:
         with allure.step("Проверяем что Детали команды содержат информацию"):
             step.should_session_log_be_successful()
 
-    @pytest.mark.skip
     @allure.title("Проверка воспроизведения сесии")
     def test_play_session(self, browser):
         step = AuthPage(browser, link)
@@ -134,6 +131,25 @@ class TestScenariosPimi:
             step.click_play_session()
         with allure.step("Проверка что вопроизведение сессии запущенно"):
             step.should_play_session_run()
+
+    @allure.suite("Настройка политик устройств")
+    class TestConfiguringDevicePolicies:
+        @allure.title("Группы устройств - Создание группы устройств")
+        def test_creating_device_group(self, browser):
+            step = AuthPage(browser, link)
+            with allure.step("Заходим на тестовый стенд"):
+                step.open()
+            with allure.step("Вводим корректные логин и пароль"):
+                step.enter_as_user()
+            with allure.step("Проверяем что авторизация прошла успешно"):
+                step.should_enter_be_successful()
+            step = DeviceGroups(browser, link)
+            with allure.step("Переходим в Управление устройствами -> Группы устройств"):
+                step.open_device_groups()
+            with allure.step("Добавляем новую группу"):
+                step.add_new_group("test1")
+            with allure.step("Кликаем ПКМ по созданной группе и нажимаем удалить"):
+                step.delete_new_group("test1")
 
     @allure.title("Область групп устройств - Создание области")
     def test_creating_area(self, browser):
@@ -155,25 +171,4 @@ class TestScenariosPimi:
             step.should_new_area_added("test1")
         with allure.step("Удаление добавленной области"):
             step.delete_new_area("test1")
-        time.sleep(10)
-
-@pytest.mark.skip
-@allure.suite("Настройка политик устройств")
-class TestConfiguringDevicePolicies:
-    @allure.title("Группы устройств - Создание группы устройств")
-    def test_creating_device_group(self, browser):
-        step = AuthPage(browser, link)
-        with allure.step("Заходим на тестовый стенд"):
-            step.open()
-        with allure.step("Вводим корректные логин и пароль"):
-            step.enter_as_user()
-        with allure.step("Проверяем что авторизация прошла успешно"):
-            step.should_enter_be_successful()
-        step = DeviceGroups(browser, link)
-        with allure.step("Переходим в Управление устройствами -> Группы устройств"):
-            step.open_device_groups()
-        with allure.step("Добавляем новую группу"):
-            step.add_new_group("test1")
-        with allure.step("Кликаем ПКМ по созданной группе и нажимаем удалить"):
-            step.delete_new_group("test1")
 
