@@ -5,7 +5,7 @@ import allure
 import pytest
 
 
-from pages.UI.Auth.auth_page import AuthPage
+from pages.UI._0_Auth.auth_page import AuthPage
 from pages.UI._8_User_Management.users_page import UserDefinition
 from pages.UI._12_Logging.session_log import SessionLog
 from pages.UI._2_Device_Management.device_groups import DeviceGroups
@@ -108,6 +108,28 @@ class TestScenariosPimi:
             step.click_play_session()
         with allure.step("Проверка что вопроизведение сессии запущенно"):
             step.should_play_session_run()
+
+    @allure.title("Область групп устройств - Создание области")
+    def test_creating_area(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+        step = DeviceGroups(browser, link)
+        with allure.step("Переходим в Управление устройствами -> Группы устройств"):
+            step.open_device_groups()
+        with allure.step("Переходим в Области групп устройств"):
+            step.device_group_realms()
+        with allure.step("Добавляем новую Область устройств"):
+            step.add_new_area("test1")
+        with allure.step("Проверка что новая область добавлена"):
+            step.should_new_area_added("test1")
+        with allure.step("Удаление добавленной области"):
+            step.delete_new_area("test1")
+        time.sleep(10)
 
 
 @allure.suite("Настройка политик устройств")
