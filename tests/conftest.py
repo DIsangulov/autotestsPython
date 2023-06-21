@@ -21,3 +21,4 @@ def browser():
         yield page
         page.close()
         browser.close()
+

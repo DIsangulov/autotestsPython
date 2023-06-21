@@ -4,9 +4,12 @@ import time
 import allure
 import pytest
 
-from pages.UI._0_Auth.auth_page import AuthPage
+
+from pages.UI.Auth.auth_page import AuthPage
+from pages.UI._8_User_Management.users_page import UserDefinition
 from pages.UI._12_Logging.session_log import SessionLog
 from pages.UI._2_Device_Management.device_groups import DeviceGroups
+
 
 # ________ constants __________
 # region
@@ -41,6 +44,29 @@ class TestAuth:
             step.log_out()
         with allure.step("Выход произведен успешно"):
             step.shold_log_out_be_successful()
+
+
+@allure.suite("Страница 'Определение пользователя'")
+class TestUser:
+    @allure.title("Создание пользователя, позитивный кейс")
+    def test_create_user(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = UserDefinition(browser, link)
+        with allure.step("Переходим на страницу 'Определение пользователя'"):
+            step.open_user_definition()
+        with allure.step("Вводим корректные данные"):
+            step.enter_user("autotest_user", "1", "qwerty", "qwerty", "autotest", "autotest", "autotest@test.com",
+                        "89999999999")
+        with allure.step("Нажимаем сохранить"):
+            step.click_save()
+        with allure.step("Поиск созданного пользователя"):
+            step.search_user("autotest_user")
+        with allure.step("Проверяем, что пользователь создан успешно"):
+            step.should_create_user_be_successful("autotest_user")
 
 
 @allure.suite("Сценарные проверки по ПиМИ")
@@ -102,6 +128,4 @@ class TestConfiguringDevicePolicies:
             step.add_new_group("test1")
         with allure.step("Кликаем ПКМ по созданной группе и нажимаем удалить"):
             step.delete_new_group("test1")
-
-
 
