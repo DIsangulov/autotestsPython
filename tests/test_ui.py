@@ -3,7 +3,7 @@ import os
 import allure
 
 from pages.UI.Auth.auth_page import AuthPage
-from pages.UI._8_User_Management.User_Defition_page import UserDefinition
+from pages.UI._8_User_Management.users_page import UserDefinition
 
 # ________ constants __________
 # region
