@@ -5,4 +5,4 @@ datetime~=4.9
 allure-pytest
 jsonschema
 docker
-playwright~=1.32.1
+playwright~=1.35.0
