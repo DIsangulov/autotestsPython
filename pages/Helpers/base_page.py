@@ -41,3 +41,12 @@ class BasePage:
         image = self.page.query_selector(selector)
         image.screenshot(path='features/images/screenshot.png')
 
+    def delay_input(self, frame_loc: str, elem_loc: str, input_str: str):
+        d = self.page.frame_locator(frame_loc).locator(elem_loc)
+        for char in input_str:
+            d.type(char, delay=100)
+            time.sleep(0.5)
+
+
+
+

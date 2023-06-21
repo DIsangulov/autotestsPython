@@ -2,6 +2,8 @@
 class MainLocators:
     LOGO_LEFT = "//div[@class='logoleft']"
     LOGO_ON_AYTH_PAGE = "//img[@src='images/productLogo_sc.png']"
+    MAIN_FRAME = "//iframe[@class='gwt-Frame x-component']"
+    RUS_BUTTON = "//a[@onclick='setLanguage(\"ru_RU\")']"
     SEARCH_BUTTON = "//*[text()='Поиск']"
     MAIN_FRAME = "//iframe[@class='gwt-Frame x-component']"
     LEFT_SIDE_FRAME = "//div[@class='navigationViewTree x-component x-unselectable']"
@@ -11,6 +13,7 @@ class MainLocators:
     REFRESH_PAGE = "(//td[@class='x-btn-mc'])[13]"
 
 
+
 class AuthLocators:
     LOGIN_INPUT = "//input[@name='username']"
     PAS_INPUT = "//input[@name='password']"
@@ -18,8 +21,27 @@ class AuthLocators:
     LOGOUT = "//div[@id='logout']"
 
 
+
+class UserDefinitionLocators:
+    USERNAME_INPUT = "//input[@name='username']"
+    PERSON_NO_INPUT = "//input[@name='personelId']"
+    PASS_INPUT = "//input[@name='password']"
+    CONFIRM_PASS_INPUT = "//input[@name='confirmPassword']"
+    FIRST_NAME_INPUT = "//input[@name='firstName']"
+    SURNAME_INPUT = "//input[@name='surname']"
+    EMAIL_INPUT = "//input[@name='email']"
+    PHONE_INPUT = "//input[@id='x-auto-182-input']"
+    SAVE_BUT = "(//button[@class='x-btn-text '])[6]"
+    SEARCH_BUT = "(//button[@class='x-btn-text '])[5]"
+
 class DeviceManagement:
     GROUP_NAME = "#x-auto-72-input"
+    NAME_AREA_DEVICES = "#x-auto-127-input"
+    DESCRIPTION_AREA_DEVICES = "#x-auto-137-input"
+    CHOICE_GROUP_DEVICES = "#x-auto-128-input"
+    CHOICE_GROUP_USERS = "#x-auto-138-input"
+    ADD_GROUP_DEVICES_BUTTON = "(//td[@class='x-btn-mc'])[4]"
+    ADD_GROUP_USERS_BUTTON = "(//td[@class='x-btn-mc'])[6]"
 
 
 class LoggingLocators:
