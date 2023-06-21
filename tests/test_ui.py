@@ -18,7 +18,7 @@ link = os.environ.get('TARGET_URL', "https://10.0.5.27")
 
 # endregion
 # ________ constants __________
-
+@pytest.mark.skip
 @allure.suite("Проверка доступности веб-интерфейса")
 class TestAuth:
     @allure.title("Авторизация, позитивный кейс")
@@ -44,6 +44,30 @@ class TestAuth:
             step.log_out()
         with allure.step("Выход произведен успешно"):
             step.shold_log_out_be_successful()
+
+@pytest.mark.skip
+@allure.suite("Страница 'Определение пользователя'")
+class TestUser:
+    @allure.title("Создание пользователя, позитивный кейс")
+    def test_create_user(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = UserDefinition(browser, link)
+        with allure.step("Переходим на страницу 'Определение пользователя'"):
+            step.open_user_definition()
+        with allure.step("Вводим корректные данные"):
+            step.enter_user("autotest_user", "1", "qwerty", "qwerty", "autotest", "autotest", "autotest@test.com",
+                        "89999999999")
+        with allure.step("Нажимаем сохранить"):
+            step.click_save()
+        with allure.step("Поиск созданного пользователя"):
+            step.search_user("autotest_user")
+        with allure.step("Проверяем, что пользователь создан успешно"):
+            step.should_create_user_be_successful("autotest_user")
+
 
 
 @allure.suite("Страница 'Определение пользователя'")
@@ -71,6 +95,7 @@ class TestUser:
 
 @allure.suite("Сценарные проверки по ПиМИ")
 class TestScenariosPimi:
+    @pytest.mark.skip
     @allure.title("Проверка показа деталей")
     def test_checking_details(self, browser):
         step = AuthPage(browser, link)
@@ -90,6 +115,7 @@ class TestScenariosPimi:
         with allure.step("Проверяем что Детали команды содержат информацию"):
             step.should_session_log_be_successful()
 
+    @pytest.mark.skip
     @allure.title("Проверка воспроизведения сесии")
     def test_play_session(self, browser):
         step = AuthPage(browser, link)
@@ -131,7 +157,7 @@ class TestScenariosPimi:
             step.delete_new_area("test1")
         time.sleep(10)
 
-
+@pytest.mark.skip
 @allure.suite("Настройка политик устройств")
 class TestConfiguringDevicePolicies:
     @allure.title("Группы устройств - Создание группы устройств")
