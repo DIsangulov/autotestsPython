@@ -5,12 +5,11 @@ class MainLocators:
     MAIN_FRAME = "//iframe[@class='gwt-Frame x-component']"
     RUS_BUTTON = "//a[@onclick='setLanguage(\"ru_RU\")']"
     SEARCH_BUTTON = "//*[text()='Поиск']"
-    MAIN_FRAME = "//iframe[@class='gwt-Frame x-component']"
     LEFT_SIDE_FRAME = "//div[@class='navigationViewTree x-component x-unselectable']"
-    RUS_BUTTON = "//a[@onclick='setLanguage(\"ru_RU\")']"
     SAVE_BUTTON = "//*[text()='Сохранить']"
     YES_BUTTON = "//button[@class='x-btn-text ' and @type='button' and text()='Да']"
     REFRESH_PAGE = "(//td[@class='x-btn-mc'])[13]"
+    SHIFT_RIGHT_BUTTON = "(//td[@class='x-table-layout-cell'])[5]"
 
 
 
