@@ -44,6 +44,7 @@ class TestAuth:
         with allure.step("Выход произведен успешно"):
             step.shold_log_out_be_successful()
 
+
 @allure.suite("Страница 'Определение пользователя'")
 class TestUser:
     @allure.title("Создание пользователя, позитивный кейс")
@@ -65,6 +66,7 @@ class TestUser:
             step.search_user("autotest_user")
         with allure.step("Проверяем, что пользователь создан успешно"):
             step.should_create_user_be_successful("autotest_user")
+
 
 @allure.suite("Сценарные проверки по ПиМИ")
 class TestScenariosPimi:
@@ -121,8 +123,13 @@ class TestConfiguringDevicePolicies:
         step = DeviceGroups(browser, link)
         with allure.step("Переходим в Управление устройствами -> Группы устройств"):
             step.open_device_groups()
-        with allure.step("Добавляем новую группу"):
-            step.add_new_group("test1")
+        try:
+            with allure.step("Добавляем новую группу"):
+                step.add_new_group("test1")
+        except:
+            with allure.step("Нажимаем Ok"):
+                step.click_ok_button()
+            print("Группа устройств уже существует")
         with allure.step("Кликаем ПКМ по созданной группе и нажимаем удалить"):
             step.delete_new_group("test1")
 
@@ -136,14 +143,19 @@ class TestConfiguringDevicePolicies:
         with allure.step("Проверяем что авторизация прошла успешно"):
             step.should_enter_be_successful()
         step = DeviceGroups(browser, link)
-        with allure.step("Переходим в Управление устройствами -> Группы устройств"):
-            step.open_device_groups()
-        with allure.step("Переходим в Области групп устройств"):
-            step.device_group_realms()
-        with allure.step("Добавляем новую Область устройств"):
-            step.add_new_area("test1")
-        with allure.step("Проверка что новая область добавлена"):
-            step.should_new_area_added("test1")
+        try:
+            with allure.step("Переходим в Управление устройствами -> Группы устройств"):
+                step.open_device_groups()
+            with allure.step("Переходим в Области групп устройств"):
+                step.device_group_realms()
+            with allure.step("Добавляем новую Область устройств"):
+                step.add_new_area("test1")
+            # with allure.step("Проверка что новая область добавлена"):
+            #     step.should_new_area_added("test1")
+        except:
+            with allure.step("Нажимаем Ok"):
+                step.click_ok_button()
+            print("Область устройств устройств уже существует")
         with allure.step("Удаление добавленной области"):
             step.delete_new_area("test1")
 

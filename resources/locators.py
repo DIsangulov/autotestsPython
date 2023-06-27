@@ -35,10 +35,10 @@ class UserDefinitionLocators:
 
 class DeviceManagement:
     GROUP_NAME = "#x-auto-72-input"
-    NAME_AREA_DEVICES = "#x-auto-127-input"
-    DESCRIPTION_AREA_DEVICES = "#x-auto-137-input"
-    CHOICE_GROUP_DEVICES = "#x-auto-128-input"
-    CHOICE_GROUP_USERS = "#x-auto-138-input"
+    NAME_AREA_DEVICES = "#x-auto-125-input"
+    DESCRIPTION_AREA_DEVICES = "#x-auto-135-input"
+    CHOICE_GROUP_DEVICES = "#x-auto-126-input"
+    CHOICE_GROUP_USERS = "#x-auto-136-input"
     ADD_GROUP_DEVICES_BUTTON = "(//td[@class='x-btn-mc'])[4]"
     ADD_GROUP_USERS_BUTTON = "(//td[@class='x-btn-mc'])[6]"
 
