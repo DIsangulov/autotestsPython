@@ -11,6 +11,7 @@ class MainLocators:
     YES_BUTTON = "//button[@class='x-btn-text ' and @type='button' and text()='Да']"
     REFRESH_PAGE = "(//td[@class='x-btn-mc'])[13]"
     SHIFT_RIGHT_BUTTON = "(//td[@class='x-table-layout-cell'])[5]"
+    OK_BUTTON = "//button[@class='x-btn-text ' and text()='Ok']"
 
 
 

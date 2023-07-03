@@ -44,7 +44,6 @@ class TestAuth:
         with allure.step("Выход произведен успешно"):
             step.shold_log_out_be_successful()
 
-
 @allure.suite("Страница 'Определение пользователя'")
 class TestUser:
     @allure.title("Создание пользователя, позитивный кейс")
@@ -66,7 +65,6 @@ class TestUser:
             step.search_user("autotest_user")
         with allure.step("Проверяем, что пользователь создан успешно"):
             step.should_create_user_be_successful("autotest_user")
-
 
 @allure.suite("Сценарные проверки по ПиМИ")
 class TestScenariosPimi:
@@ -178,3 +176,22 @@ class TestConfiguringDevicePolicies:
             step.add_new_policy_key(".*")
         with allure.step("Удаляем новый ключ политики"):
             step.delete_new_policy_key(".*")
+
+    @allure.title("Группа правил - Добавление группы правил")
+    def test_add_rules_group(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+        step = SessionPolicy(browser, link)
+        with allure.step("Переходим в Управление политиками -> Политики сессий"):
+            step.open_session_policy()
+        with allure.step("Переходим в Группы политик"):
+            step.open_politic_group()
+        with allure.step("Добавляем новое свойство группы политик"):
+            step.add_policy_group_properties("test1")
+        with allure.step("Удаляем новое свойство группы политик"):
+            step.delete_policy_group_properties("test1")
