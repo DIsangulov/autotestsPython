@@ -4,6 +4,7 @@ class MainLocators:
     LOGO_ON_AYTH_PAGE = "//img[@src='images/productLogo_sc.png']"
     MAIN_FRAME = "//iframe[@class='gwt-Frame x-component']"
     RUS_BUTTON = "//a[@onclick='setLanguage(\"ru_RU\")']"
+    CLEAR_BUTTON = "//*[text()='Очистить']"
     SEARCH_BUTTON = "//*[text()='Поиск']"
     LEFT_SIDE_FRAME = "//div[@class='navigationViewTree x-component x-unselectable']"
     SAVE_BUTTON = "//*[text()='Сохранить']"
@@ -35,10 +36,10 @@ class UserDefinitionLocators:
 
 class DeviceManagement:
     GROUP_NAME = "#x-auto-72-input"
-    NAME_AREA_DEVICES = "#x-auto-125-input"
-    DESCRIPTION_AREA_DEVICES = "#x-auto-135-input"
-    CHOICE_GROUP_DEVICES = "#x-auto-126-input"
-    CHOICE_GROUP_USERS = "#x-auto-136-input"
+    NAME_AREA_DEVICES = "#x-auto-124-input"
+    DESCRIPTION_AREA_DEVICES = "#x-auto-134-input"
+    CHOICE_GROUP_DEVICES = "#x-auto-125-input"
+    CHOICE_GROUP_USERS = "#x-auto-135-input"
     ADD_GROUP_DEVICES_BUTTON = "(//td[@class='x-btn-mc'])[4]"
     ADD_GROUP_USERS_BUTTON = "(//td[@class='x-btn-mc'])[6]"
 
