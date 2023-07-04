@@ -31,3 +31,17 @@ class UserDefinition(BasePage):
             assert self.page.get_by_text(username).is_visible()
         except:
             print("Данный пользователь найден")
+
+    def delete_user(self):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(UserDefinitionLocators.OPTION_BUT).click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Удалить").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(UserDefinitionLocators.CONFIRM_BUT).click()
+
+    def should_delete_user_be_successful(self, username):
+        try:
+            assert self.page.get_by_text(username).is_hidden()
+        except:
+            print("Данный пользователь не найден")
+
+
+
