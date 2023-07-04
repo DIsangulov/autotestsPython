@@ -36,6 +36,9 @@ class SessionPolicy(BasePage):
     def open_politic_group(self):
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Группа политик").click()
 
+    def open_politic_area(self):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Область политики").click()
+
     def add_policy_group_properties(self, policy_name):
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-234-input").fill(policy_name)
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-235-input").fill("description")
@@ -55,6 +58,23 @@ class SessionPolicy(BasePage):
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator("(//button[@class='x-btn-text'])[3]").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Удалить").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.YES_BUTTON).click()
+
+    def add_policy_area(self, area_name):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-234-input").fill(area_name)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-254-input").fill(area_name)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-244").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("all").nth(0).click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-265").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SAVE_BUTTON).click()
+
+    def delete_policy_area(self, area_name):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Очистить").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-234-input").fill(area_name)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SEARCH_BUTTON).click()
+        time.sleep(3)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("//span[contains(text(), '"+area_name+"')]/preceding::button[1]").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.YES_BUTTON).click()
+
 
 
 
