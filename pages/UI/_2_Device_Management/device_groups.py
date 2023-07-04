@@ -16,6 +16,10 @@ class DeviceGroups(BasePage):
         time.sleep(1)
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.REFRESH_PAGE).click()
 
+    def click_ok_button(self):
+        # self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Ok").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.OK_BUTTON).click()
+
     def delete_new_group(self, group_name):
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text(group_name).nth(0).click(button='right')
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Удалить группу устройств").click()
@@ -44,6 +48,7 @@ class DeviceGroups(BasePage):
         assert self.page.frame_locator(MainLocators.MAIN_FRAME).locator("//*[text()='"+area_name+"']"), "Новая добавленная область не появилась"
 
     def delete_new_area(self, area_name):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.CLEAR_BUTTON).click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(DeviceManagement.NAME_AREA_DEVICES).fill(area_name)
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SEARCH_BUTTON).click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(LoggingLocators.SESSION_OPTIONS).click()

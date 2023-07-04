@@ -4,13 +4,14 @@ class MainLocators:
     LOGO_ON_AYTH_PAGE = "//img[@src='images/productLogo_sc.png']"
     MAIN_FRAME = "//iframe[@class='gwt-Frame x-component']"
     RUS_BUTTON = "//a[@onclick='setLanguage(\"ru_RU\")']"
+    CLEAR_BUTTON = "//*[text()='Очистить']"
     SEARCH_BUTTON = "//*[text()='Поиск']"
-    MAIN_FRAME = "//iframe[@class='gwt-Frame x-component']"
     LEFT_SIDE_FRAME = "//div[@class='navigationViewTree x-component x-unselectable']"
-    RUS_BUTTON = "//a[@onclick='setLanguage(\"ru_RU\")']"
     SAVE_BUTTON = "//*[text()='Сохранить']"
     YES_BUTTON = "//button[@class='x-btn-text ' and @type='button' and text()='Да']"
     REFRESH_PAGE = "(//td[@class='x-btn-mc'])[13]"
+    SHIFT_RIGHT_BUTTON = "(//td[@class='x-table-layout-cell'])[5]"
+    OK_BUTTON = "//button[@class='x-btn-text ' and text()='Ok']"
 
 
 class AuthLocators:
@@ -37,10 +38,10 @@ class UserDefinitionLocators:
 
 class DeviceManagement:
     GROUP_NAME = "#x-auto-72-input"
-    NAME_AREA_DEVICES = "#x-auto-127-input"
-    DESCRIPTION_AREA_DEVICES = "#x-auto-137-input"
-    CHOICE_GROUP_DEVICES = "#x-auto-128-input"
-    CHOICE_GROUP_USERS = "#x-auto-138-input"
+    NAME_AREA_DEVICES = "#x-auto-124-input"
+    DESCRIPTION_AREA_DEVICES = "#x-auto-134-input"
+    CHOICE_GROUP_DEVICES = "#x-auto-125-input"
+    CHOICE_GROUP_USERS = "#x-auto-135-input"
     ADD_GROUP_DEVICES_BUTTON = "(//td[@class='x-btn-mc'])[4]"
     ADD_GROUP_USERS_BUTTON = "(//td[@class='x-btn-mc'])[6]"
 
