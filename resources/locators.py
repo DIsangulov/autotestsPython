@@ -13,13 +13,11 @@ class MainLocators:
     REFRESH_PAGE = "(//td[@class='x-btn-mc'])[13]"
 
 
-
 class AuthLocators:
     LOGIN_INPUT = "//input[@name='username']"
     PAS_INPUT = "//input[@name='password']"
     ENTER_BUT = "//input[@name='login']"
     LOGOUT = "//div[@id='logout']"
-
 
 
 class UserDefinitionLocators:
@@ -33,6 +31,9 @@ class UserDefinitionLocators:
     PHONE_INPUT = "//input[@id='x-auto-182-input']"
     SAVE_BUT = "(//button[@class='x-btn-text '])[6]"
     SEARCH_BUT = "(//button[@class='x-btn-text '])[5]"
+    OPTION_BUT = "//em[@class='x-btn-arrow']"
+    CONFIRM_BUT = "(//button[@class='x-btn-text '])[7]"
+
 
 class DeviceManagement:
     GROUP_NAME = "#x-auto-72-input"
