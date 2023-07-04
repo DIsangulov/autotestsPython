@@ -28,7 +28,7 @@ class SessionLog(BasePage):
             print("У данной сессии детали не найдены, но модальное окно открылось")
 
     def click_play_session(self):
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(LoggingLocators.SESSION_OPTIONS).click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("(//div[contains(text(), 'RDP')]/preceding::button[1])[2]").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Воспроизвести сессию").click()
 
     def should_play_session_run(self):

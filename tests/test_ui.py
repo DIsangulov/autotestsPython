@@ -18,6 +18,7 @@ link = os.environ.get('TARGET_URL', "https://10.0.5.27")
 # endregion
 # ________ constants __________
 
+
 @allure.suite("Проверка доступности веб-интерфейса")
 class TestAuth:
     @allure.title("Авторизация, позитивный кейс")
@@ -121,7 +122,7 @@ class TestScenariosPimi:
         with allure.step("Нажимаем на кнопку Поиск"):
             step.click_search()
         with allure.step("Нажимаем на Опции -> Воспроизвести сессию"):
-            step.click_play_session()
+            step.click_play_session()  # тут надо конкретезировать что воспроизводить только определенные сессии
         with allure.step("Проверка что вопроизведение сессии запущенно"):
             step.should_play_session_run()
 

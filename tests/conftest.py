@@ -11,7 +11,7 @@ from playwright.sync_api import Playwright, sync_playwright
 #         yield page
 #         page.close()
 #         browser.close()
-#
+
 @pytest.fixture(scope='function')
 def browser():
     with sync_playwright() as playwright:
