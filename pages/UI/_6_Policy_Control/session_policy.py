@@ -1,7 +1,7 @@
 import time
 
 from pages.Helpers.base_page import BasePage
-from resources.locators import LoggingLocators, MainLocators
+from resources.locators import MainLocators
 
 
 class SessionPolicy(BasePage):
@@ -10,7 +10,6 @@ class SessionPolicy(BasePage):
         self.page.get_by_text("Политики сессий").click()
 
     def click_ok_button(self):
-        # self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Ok").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.OK_BUTTON).click()
 
     def add_new_policy_key(self, key_name):

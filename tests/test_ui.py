@@ -5,6 +5,7 @@ import allure
 import pytest
 
 from pages.UI._0_Auth.auth_page import AuthPage
+from pages.UI._6_Policy_Control.portal_functions import PortalFunctions
 from pages.UI._6_Policy_Control.session_policy import SessionPolicy
 from pages.UI._8_User_Management.users_page import UserDefinition
 from pages.UI._12_Logging.session_log import SessionLog
@@ -122,9 +123,26 @@ class TestScenariosPimi:
         with allure.step("Нажимаем на кнопку Поиск"):
             step.click_search()
         with allure.step("Нажимаем на Опции -> Воспроизвести сессию"):
-            step.click_play_session()  # тут надо конкретезировать что воспроизводить только определенные сессии
+            step.click_play_session()
         with allure.step("Проверка что вопроизведение сессии запущенно"):
             step.should_play_session_run()
+
+    @allure.title("Проверка создания области определения и разделения функции")
+    def test_creating_scope_for_defining_and_separating_function(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = PortalFunctions(browser, link)
+        with allure.step("Переходим в Управление политиками -> Функции портала"):
+            step.open_portal_functions()
+        with allure.step("Добавляем новую области определения и разделения функции"):
+            step.add_new_area("test1")
+        # with allure.step("Проверяем что новая область добавлена"):
+        #     step.should_new_area_added("test1")
+        with allure.step("Удаляем новую области определения и разделения функции"):
+            step.delete_new_area("test1")
 
 
 @allure.suite("Настройка политик устройств")
