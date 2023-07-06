@@ -286,8 +286,8 @@ class TestBasicConfiguration:
             step.add_new_function_group_definition("test1")
         with allure.step("Проверяем что группа добавлена"):
             step.should_new_function_group_definition_added("test1")
-        with allure.step("Удаляем созданную группу"):
-            step.delete_new_function_group_definition_added("test1")
+        # with allure.step("Удаляем созданную группу"):
+        #     step.delete_new_function_group_definition_added("test1")
 
     @allure.title("Проверка создания области определения и разделения функции")
     def test_creating_scope_for_defining_and_separating_function(self, browser):
@@ -303,5 +303,5 @@ class TestBasicConfiguration:
             step.add_new_area("test1")
         # with allure.step("Проверяем что новая область добавлена"):
         #     step.should_new_area_added("test1")
-        with allure.step("Удаляем новую области определения и разделения функции"):
-            step.delete_new_area("test1")
+        # with allure.step("Удаляем новую области определения и разделения функции"):
+        #     step.delete_new_area("test1")
