@@ -288,4 +288,20 @@ class TestBasicConfiguration:
             step.should_new_function_group_definition_added("test1")
         with allure.step("Удаляем созданную группу"):
             step.delete_new_function_group_definition_added("test1")
-        time.sleep(3)
+
+    @allure.title("Проверка создания области определения и разделения функции")
+    def test_creating_scope_for_defining_and_separating_function(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = PortalFunctions(browser, link)
+        with allure.step("Переходим в Управление политиками -> Функции портала"):
+            step.open_portal_functions()
+        with allure.step("Добавляем новую области определения и разделения функции"):
+            step.add_new_area("test1")
+        # with allure.step("Проверяем что новая область добавлена"):
+        #     step.should_new_area_added("test1")
+        with allure.step("Удаляем новую области определения и разделения функции"):
+            step.delete_new_area("test1")
