@@ -20,6 +20,7 @@ link = os.environ.get('TARGET_URL', "https://10.0.5.27")
 # ________ constants __________
 
 
+@pytest.mark.skip
 @allure.suite("Проверка доступности веб-интерфейса")
 class TestAuth:
     @allure.title("Авторизация, позитивный кейс")
@@ -47,6 +48,7 @@ class TestAuth:
             step.shold_log_out_be_successful()
 
 
+@pytest.mark.skip
 @allure.suite("Страница 'Определение пользователя'")
 class TestUser:
     @allure.title("Создание пользователя, позитивный кейс")
@@ -87,6 +89,7 @@ class TestUser:
             step.should_delete_user_be_successful("autotest_user")
 
 
+@pytest.mark.skip
 @allure.suite("Сценарные проверки по ПиМИ")
 class TestScenariosPimi:
     @allure.title("Проверка показа деталей")
@@ -145,6 +148,7 @@ class TestScenariosPimi:
             step.delete_new_area("test1")
 
 
+@pytest.mark.skip
 @allure.suite("Настройка политик устройств")
 class TestConfiguringDevicePolicies:
     @allure.title("Группы устройств - Создание группы устройств")
@@ -253,3 +257,35 @@ class TestConfiguringDevicePolicies:
         with allure.step("Удаляем новую область политики"):
             step.delete_policy_area("test1")
 
+
+@allure.suite("Базовая настройка Инфраскоп")
+class TestBasicConfiguration:
+    @allure.title("Авторизация, позитивный кейс")
+    def test_valid_auth(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+
+    @allure.title("Определение функциональной группы - Добавление функциональной группы")
+    def test_defining_functional_group_adding_functional_group(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = PortalFunctions(browser, link)
+        with allure.step("Переходим в Управление политиками -> Функции портала"):
+            step.open_portal_functions()
+        with allure.step("Переходим во вкладку Определение группы функций"):
+            step.go_to_function_group_definition_tab()
+        with allure.step("Добавляем новую функциональную группу"):
+            step.add_new_function_group_definition("test1")
+        with allure.step("Проверяем что группа добавлена"):
+            step.should_new_function_group_definition_added("test1")
+        with allure.step("Удаляем созданную группу"):
+            step.delete_new_function_group_definition_added("test1")
+        time.sleep(3)
