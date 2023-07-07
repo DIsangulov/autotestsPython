@@ -39,7 +39,7 @@ class BasePage:
 
     def save_image(self, selector: str):
         image = self.page.query_selector(selector)
-        image.screenshot(path='features/images/screenshot.png')
+        image.screenshot(path='data/screenshot.png')
 
     def delay_input(self, frame_loc: str, elem_loc: str, input_str: str):
         d = self.page.frame_locator(frame_loc).locator(elem_loc)

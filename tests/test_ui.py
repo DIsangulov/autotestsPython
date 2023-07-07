@@ -5,6 +5,7 @@ import allure
 import pytest
 
 from pages.UI._0_Auth.auth_page import AuthPage
+from pages.UI._3_Administration.system_config_man import SystemConfigMan
 from pages.UI._6_Policy_Control.portal_functions import PortalFunctions
 from pages.UI._6_Policy_Control.session_policy import SessionPolicy
 from pages.UI._8_User_Management.users_page import UserDefinition
@@ -260,7 +261,6 @@ class TestConfiguringDevicePolicies:
 
 @allure.suite("Базовая настройка Инфраскоп")
 class TestBasicConfiguration:
-    @pytest.mark.skip
     @allure.title("Авторизация, позитивный кейс")
     def test_valid_auth(self, browser):
         step = AuthPage(browser, link)
@@ -271,7 +271,6 @@ class TestBasicConfiguration:
         with allure.step("Проверяем что авторизация прошла успешно"):
             step.should_enter_be_successful()
 
-    @pytest.mark.skip
     @allure.title("Определение функциональной группы - Добавление функциональной группы")
     def test_defining_functional_group_adding_functional_group(self, browser):
         step = AuthPage(browser, link)
@@ -307,3 +306,20 @@ class TestBasicConfiguration:
             step.should_new_area_added("test1")
         # with allure.step("Удаляем новую области определения и разделения функции"):
         #     step.delete_new_area("test1")
+
+    @allure.title("Настройки системы - Создание менеджера конфигурации системы")
+    def test_creating_system_configuration_manager(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = SystemConfigMan(browser, link)
+        with allure.step("Переходим в Администрирование -> Конфигурация системы"):
+            step.open_system_config_man()
+        with allure.step("Добавляем параметр otp.rest.url/http://127.0.0.1"):
+            step.add_system_parameter_otp_rest_url()
+        with allure.step("Добавляем параметр netright.auth.ldap/true"):
+            step.add_system_parameter_netright_auth_ldap()
+        with allure.step("Добавляем параметр sc.portal.otp.enabled/true"):
+            step.add_system_parameter_sc_portal_otp_enabled()
