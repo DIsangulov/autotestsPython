@@ -39,14 +39,14 @@ class PortalFunctions(BasePage):
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Определение группы функций").click()
 
     def add_new_function_group_definition(self, group_name):
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-195-input").fill(group_name)
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-196-input").fill(group_name)
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-205").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-206-input").fill(group_name)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-207-input").fill(group_name)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-216").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SAVE_BUTTON).click()
 
     def should_new_function_group_definition_added(self, group_name):
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Очистить").click()
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-195-input").fill(group_name)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-206-input").fill(group_name)
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SEARCH_BUTTON).click()
         time.sleep(3)
         assert self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text(group_name).nth(0).is_visible()
