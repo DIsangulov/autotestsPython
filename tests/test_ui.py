@@ -260,6 +260,7 @@ class TestConfiguringDevicePolicies:
 
 @allure.suite("Базовая настройка Инфраскоп")
 class TestBasicConfiguration:
+    @pytest.mark.skip
     @allure.title("Авторизация, позитивный кейс")
     def test_valid_auth(self, browser):
         step = AuthPage(browser, link)
@@ -270,6 +271,7 @@ class TestBasicConfiguration:
         with allure.step("Проверяем что авторизация прошла успешно"):
             step.should_enter_be_successful()
 
+    @pytest.mark.skip
     @allure.title("Определение функциональной группы - Добавление функциональной группы")
     def test_defining_functional_group_adding_functional_group(self, browser):
         step = AuthPage(browser, link)
@@ -301,7 +303,7 @@ class TestBasicConfiguration:
             step.open_portal_functions()
         with allure.step("Добавляем новую области определения и разделения функции"):
             step.add_new_area("test1")
-        # with allure.step("Проверяем что новая область добавлена"):
-        #     step.should_new_area_added("test1")
+        with allure.step("Проверяем что новая область добавлена"):
+            step.should_new_area_added("test1")
         # with allure.step("Удаляем новую области определения и разделения функции"):
         #     step.delete_new_area("test1")

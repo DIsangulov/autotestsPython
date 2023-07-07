@@ -24,7 +24,11 @@ class PortalFunctions(BasePage):
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SAVE_BUTTON).click()
 
     def should_new_area_added(self, area_name):
-        assert self.page.get_by_text(area_name).is_visible()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Очистить").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-54-input").fill(area_name)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SEARCH_BUTTON).click()
+        time.sleep(2)
+        assert self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text(area_name).nth(2).is_visible()
 
     def delete_new_area(self, area_name):
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Очистить").click()
