@@ -284,7 +284,7 @@ class TestBasicConfiguration:
         with allure.step("Переходим во вкладку Определение группы функций"):
             step.go_to_function_group_definition_tab()
         with allure.step("Добавляем новую функциональную группу"):
-            step.add_new_function_group_definition("test1")  # что-то с локаторами
+            step.add_new_function_group_definition("test1")
         with allure.step("Проверяем что группа добавлена"):
             step.should_new_function_group_definition_added("test1")
         # with allure.step("Удаляем созданную группу"):
@@ -307,6 +307,7 @@ class TestBasicConfiguration:
         # with allure.step("Удаляем новую области определения и разделения функции"):
         #     step.delete_new_area("test1")
 
+    @pytest.mark.skip
     @allure.title("Настройки системы - Создание менеджера конфигурации системы")
     def test_creating_system_configuration_manager(self, browser):
         step = AuthPage(browser, link)

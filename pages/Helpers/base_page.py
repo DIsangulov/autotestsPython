@@ -1,6 +1,9 @@
+import datetime
 import time
 
+import allure
 from playwright.sync_api import Playwright, Page
+
 
 
 class BasePage:
@@ -37,16 +40,10 @@ class BasePage:
     def browser_close(self):
         self.page.close()
 
-    def save_image(self, selector: str):
-        image = self.page.query_selector(selector)
-        image.screenshot(path='data/screenshot.png')
-
     def delay_input(self, frame_loc: str, elem_loc: str, input_str: str):
         d = self.page.frame_locator(frame_loc).locator(elem_loc)
         for char in input_str:
             d.type(char, delay=100)
             time.sleep(0.5)
-
-
 
 
