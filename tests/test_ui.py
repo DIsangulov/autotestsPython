@@ -21,7 +21,6 @@ link = os.environ.get('TARGET_URL', "https://10.0.5.27")
 # ________ constants __________
 
 
-@pytest.mark.skip
 @allure.suite("Проверка доступности веб-интерфейса")
 class TestAuth:
     @allure.title("Авторизация, позитивный кейс")
@@ -49,48 +48,6 @@ class TestAuth:
             step.shold_log_out_be_successful()
 
 
-@pytest.mark.skip
-@allure.suite("Страница 'Определение пользователя'")
-class TestUser:
-    @allure.title("Создание пользователя, позитивный кейс")
-    def test_create_user(self, browser):
-        step = AuthPage(browser, link)
-        with allure.step("Заходим на тестовый стенд"):
-            step.open()
-        with allure.step("Вводим корректные логин и пароль"):
-            step.enter_as_user()
-        step = UserDefinition(browser, link)
-        with allure.step("Переходим на страницу 'Определение пользователя'"):
-            step.open_user_definition()
-        with allure.step("Вводим корректные данные"):
-            step.enter_user("autotest_user", "1", "qwerty", "qwerty", "autotest", "autotest", "autotest@test.com",
-                            "89999999999")
-        with allure.step("Нажимаем сохранить"):
-            step.click_save()
-        with allure.step("Поиск созданного пользователя"):
-            step.search_user("autotest_user")
-        with allure.step("Проверяем, что пользователь создан успешно"):
-            step.should_create_user_be_successful("autotest_user")
-
-    @allure.title("Удаление пользователя, позитивный кейс")
-    def test_delete_user(self, browser):
-        step = AuthPage(browser, link)
-        with allure.step("Заходим на тестовый стенд"):
-            step.open()
-        with allure.step("Вводим корректные логин и пароль"):
-            step.enter_as_user()
-        step = UserDefinition(browser, link)
-        with allure.step("Переходим на страницу 'Определение пользователя'"):
-            step.open_user_definition()
-        with allure.step("Поиск пользователя"):
-            step.search_user("autotest_user")
-        with allure.step("Удаляем пользователя"):
-            step.delete_user()
-        with allure.step("Проверяем, что пользователь удален"):
-            step.should_delete_user_be_successful("autotest_user")
-
-
-@pytest.mark.skip
 @allure.suite("Сценарные проверки по ПиМИ")
 class TestScenariosPimi:
     @allure.title("Проверка показа деталей")
@@ -127,29 +84,11 @@ class TestScenariosPimi:
         with allure.step("Нажимаем на кнопку Поиск"):
             step.click_search()
         with allure.step("Нажимаем на Опции -> Воспроизвести сессию"):
-            step.click_play_session()
+            step.click_play_session()  # тут надо конкретезировать что воспроизводить только определенные сессии
         with allure.step("Проверка что вопроизведение сессии запущенно"):
             step.should_play_session_run()
 
-    @allure.title("Проверка создания области определения и разделения функции")
-    def test_creating_scope_for_defining_and_separating_function(self, browser):
-        step = AuthPage(browser, link)
-        with allure.step("Заходим на тестовый стенд"):
-            step.open()
-        with allure.step("Вводим корректные логин и пароль"):
-            step.enter_as_user()
-        step = PortalFunctions(browser, link)
-        with allure.step("Переходим в Управление политиками -> Функции портала"):
-            step.open_portal_functions()
-        with allure.step("Добавляем новую области определения и разделения функции"):
-            step.add_new_area("test1")
-        # with allure.step("Проверяем что новая область добавлена"):
-        #     step.should_new_area_added("test1")
-        with allure.step("Удаляем новую области определения и разделения функции"):
-            step.delete_new_area("test1")
 
-
-@pytest.mark.skip
 @allure.suite("Настройка политик устройств")
 class TestConfiguringDevicePolicies:
     @allure.title("Группы устройств - Создание группы устройств")
@@ -173,7 +112,6 @@ class TestConfiguringDevicePolicies:
             print("Группа устройств уже существует")
         with allure.step("Кликаем ПКМ по созданной группе и нажимаем удалить"):
             step.delete_new_group("test1")
-
 
     @allure.title("Область групп устройств - Создание области")
     def test_creating_area(self, browser):
@@ -239,6 +177,25 @@ class TestConfiguringDevicePolicies:
             step.add_policy_group_properties("test1")
         with allure.step("Удаляем новое свойство группы политик"):
             step.delete_policy_group_properties("test1")
+
+    @allure.title("Область политики - Добавление области политики")
+    def test_add_policy_area(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+        step = SessionPolicy(browser, link)
+        with allure.step("Переходим в Управление политиками -> Политики сессий"):
+            step.open_session_policy()
+        with allure.step("Переходим в Область политики"):
+            step.open_politic_area()
+        with allure.step("Добавляем новую область политики"):
+            step.add_policy_area("test1")
+        with allure.step("Удаляем новую область политики"):
+            step.delete_policy_area("test1")
 
     @allure.title("Область политики - Добавление области политики")
     def test_add_policy_area(self, browser):

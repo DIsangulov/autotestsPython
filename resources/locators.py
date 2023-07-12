@@ -29,7 +29,7 @@ class UserDefinitionLocators:
     FIRST_NAME_INPUT = "//input[@name='firstName']"
     SURNAME_INPUT = "//input[@name='surname']"
     EMAIL_INPUT = "//input[@name='email']"
-    PHONE_INPUT = "//input[@id='x-auto-182-input']"
+    PHONE_INPUT = "//input[@id='x-auto-187-input']"
     SAVE_BUT = "(//button[@class='x-btn-text '])[6]"
     SEARCH_BUT = "(//button[@class='x-btn-text '])[5]"
     OPTION_BUT = "//em[@class='x-btn-arrow']"
@@ -44,7 +44,6 @@ class UserGroupsLocators:
     SAVE_BUT = "(//button[@class='x-btn-text '])[6]"
     SEARCH_BUT = "(//button[@class='x-btn-text '])[5]"
     CONFIRM_BUT = "(//button[@class='x-btn-text '])[7]"
-
 
 
 class DeviceManagement:
