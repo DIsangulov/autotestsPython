@@ -36,6 +36,17 @@ class UserDefinitionLocators:
     CONFIRM_BUT = "(//button[@class='x-btn-text '])[7]"
 
 
+class UserGroupsLocators:
+    NAME_GROUP_INPUT = "//input[@id='x-auto-172-input']"
+    USER_INPUT = "//input[@id='x-auto-174-input']"
+    DESCRIPTION_INPUT = "//input[@id='x-auto-198-input']"
+    MANAGER_INPUT = "//input[@id='x-auto-200-input']"
+    SAVE_BUT = "(//button[@class='x-btn-text '])[6]"
+    SEARCH_BUT = "(//button[@class='x-btn-text '])[5]"
+    CONFIRM_BUT = "(//button[@class='x-btn-text '])[7]"
+
+
+
 class DeviceManagement:
     GROUP_NAME = "#x-auto-72-input"
     NAME_AREA_DEVICES = "#x-auto-124-input"
