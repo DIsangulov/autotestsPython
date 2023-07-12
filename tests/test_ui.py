@@ -174,6 +174,7 @@ class TestConfiguringDevicePolicies:
         with allure.step("Кликаем ПКМ по созданной группе и нажимаем удалить"):
             step.delete_new_group("test1")
 
+
     @allure.title("Область групп устройств - Создание области")
     def test_creating_area(self, browser):
         step = AuthPage(browser, link)
