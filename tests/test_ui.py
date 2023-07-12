@@ -5,11 +5,12 @@ import allure
 import pytest
 
 from pages.UI._0_Auth.auth_page import AuthPage
+from pages.UI._3_Administration.system_config_man import SystemConfigMan
+from pages.UI._6_Policy_Control.portal_functions import PortalFunctions
 from pages.UI._6_Policy_Control.session_policy import SessionPolicy
 from pages.UI._8_User_Management.users_page import UserDefinition
 from pages.UI._12_Logging.session_log import SessionLog
 from pages.UI._2_Device_Management.device_groups import DeviceGroups
-from pages.UI._8_User_Management.user_groups_page import UserGroupDefinition
 
 # ________ constants __________
 # region
@@ -196,3 +197,88 @@ class TestConfiguringDevicePolicies:
         with allure.step("Удаляем новую область политики"):
             step.delete_policy_area("test1")
 
+    @allure.title("Область политики - Добавление области политики")
+    def test_add_policy_area(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+        step = SessionPolicy(browser, link)
+        with allure.step("Переходим в Управление политиками -> Политики сессий"):
+            step.open_session_policy()
+        with allure.step("Переходим в Область политики"):
+            step.open_politic_area()
+        with allure.step("Добавляем новую область политики"):
+            step.add_policy_area("test1")
+        with allure.step("Удаляем новую область политики"):
+            step.delete_policy_area("test1")
+
+
+@allure.suite("Базовая настройка Инфраскоп")
+class TestBasicConfiguration:
+    @allure.title("Авторизация, позитивный кейс")
+    def test_valid_auth(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+
+    @allure.title("Определение функциональной группы - Добавление функциональной группы")
+    def test_defining_functional_group_adding_functional_group(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = PortalFunctions(browser, link)
+        with allure.step("Переходим в Управление политиками -> Функции портала"):
+            step.open_portal_functions()
+        with allure.step("Переходим во вкладку Определение группы функций"):
+            step.go_to_function_group_definition_tab()
+        with allure.step("Добавляем новую функциональную группу"):
+            step.add_new_function_group_definition("test1")
+        with allure.step("Проверяем что группа добавлена"):
+            step.should_new_function_group_definition_added("test1")
+        # with allure.step("Удаляем созданную группу"):
+        #     step.delete_new_function_group_definition_added("test1")
+
+    @allure.title("Проверка создания области определения и разделения функции")
+    def test_creating_scope_for_defining_and_separating_function(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = PortalFunctions(browser, link)
+        with allure.step("Переходим в Управление политиками -> Функции портала"):
+            step.open_portal_functions()
+        with allure.step("Добавляем новую области определения и разделения функции"):
+            step.add_new_area("test1")
+        with allure.step("Проверяем что новая область добавлена"):
+            step.should_new_area_added("test1")
+        # with allure.step("Удаляем новую области определения и разделения функции"):
+        #     step.delete_new_area("test1")
+
+    @pytest.mark.skip
+    @allure.title("Настройки системы - Создание менеджера конфигурации системы")
+    def test_creating_system_configuration_manager(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = SystemConfigMan(browser, link)
+        with allure.step("Переходим в Администрирование -> Конфигурация системы"):
+            step.open_system_config_man()
+        with allure.step("Добавляем параметр otp.rest.url/http://127.0.0.1"):
+            step.add_system_parameter_otp_rest_url()
+        with allure.step("Добавляем параметр netright.auth.ldap/true"):
+            step.add_system_parameter_netright_auth_ldap()
+        with allure.step("Добавляем параметр sc.portal.otp.enabled/true"):
+            step.add_system_parameter_sc_portal_otp_enabled()
