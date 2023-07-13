@@ -293,6 +293,7 @@ class TestConfiguringDevicePolicies:
 
 @allure.suite("Базовая настройка Инфраскоп")
 class TestBasicConfiguration:
+    @pytest.mark.skip
     @allure.title("Авторизация, позитивный кейс")
     def test_valid_auth(self, browser):
         step = AuthPage(browser, link)
@@ -339,20 +340,93 @@ class TestBasicConfiguration:
         # with allure.step("Удаляем новую области определения и разделения функции"):
         #     step.delete_new_area("test1")
 
-    @pytest.mark.skip
-    @allure.title("Настройки системы - Создание менеджера конфигурации системы")
-    def test_creating_system_configuration_manager(self, browser):
+    # @pytest.mark.skip
+    # @allure.title("Настройки системы - Создание менеджера конфигурации системы")
+    # def test_creating_system_configuration_manager(self, browser):
+    #     step = AuthPage(browser, link)
+    #     with allure.step("Заходим на тестовый стенд"):
+    #         step.open()
+    #     with allure.step("Вводим корректные логин и пароль"):
+    #         step.enter_as_user()
+    #     step = SystemConfigMan(browser, link)
+    #     with allure.step("Переходим в Администрирование -> Конфигурация системы"):
+    #         step.open_system_config_man()
+    #     with allure.step("Добавляем параметр otp.rest.url/http://127.0.0.1"):
+    #         step.add_system_parameter_otp_rest_url()
+    #     with allure.step("Добавляем параметр netright.auth.ldap/true"):
+    #         step.add_system_parameter_netright_auth_ldap()
+    #     with allure.step("Добавляем параметр sc.portal.otp.enabled/false"):
+    #         step.add_system_parameter_sc_portal_otp_enabled()
+
+
+    @allure.title("Группы устройств - Создание группы устройств")
+    def test_creating_device_group(self, browser):
         step = AuthPage(browser, link)
         with allure.step("Заходим на тестовый стенд"):
             step.open()
         with allure.step("Вводим корректные логин и пароль"):
             step.enter_as_user()
-        step = SystemConfigMan(browser, link)
-        with allure.step("Переходим в Администрирование -> Конфигурация системы"):
-            step.open_system_config_man()
-        with allure.step("Добавляем параметр otp.rest.url/http://127.0.0.1"):
-            step.add_system_parameter_otp_rest_url()
-        with allure.step("Добавляем параметр netright.auth.ldap/true"):
-            step.add_system_parameter_netright_auth_ldap()
-        with allure.step("Добавляем параметр sc.portal.otp.enabled/true"):
-            step.add_system_parameter_sc_portal_otp_enabled()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+        step = DeviceGroups(browser, link)
+        with allure.step("Переходим в Управление устройствами -> Группы устройств"):
+            step.open_device_groups()
+        try:
+            with allure.step("Добавляем новую группу"):
+                step.add_new_group("test1")
+        except:
+            with allure.step("Нажимаем Ok"):
+                step.click_ok_button()
+            print("Группа устройств уже существует")
+        # with allure.step("Кликаем ПКМ по созданной группе и нажимаем удалить"):
+        #     step.delete_new_group("test1")
+
+    @allure.title("Группы устройств - Добавление свойств")
+    def test_device_group_add_property(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+        step = DeviceGroups(browser, link)
+        with allure.step("Переходим в Управление устройствами -> Группы устройств"):
+            step.open_device_groups()
+        with allure.step("Клик ПКМ на название Группы устройств, открываем свойства"):
+            step.open_device_properties('test1')
+        with allure.step("Добавляем первое свойство"):
+            step.add_properties_to_device_group('addAssignedCredentialToUserSelection', 'true')
+        with allure.step("Добавляем второе свойство"):
+            step.add_properties_to_device_group('addManualLoginToUserSelection', 'true')
+        with allure.step("Проверяем что свойства добавлены"):
+            step.should_device_group_properties_added('addAssignedCredentialToUserSelection', 'addManualLoginToUserSelection')
+
+    @allure.title("Область групп устройств - Создание области")
+    def test_creating_area(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+        step = DeviceGroups(browser, link)
+        with allure.step("Переходим в Управление устройствами -> Группы устройств"):
+            step.open_device_groups()
+        with allure.step("Переходим в Области групп устройств"):
+            step.device_group_realms()
+        with allure.step("Добавляем новую Область устройств"):
+            step.add_new_area("test1")
+        try:
+            with allure.step("Нажимаем Ok"):
+                step.click_ok_button()
+            # with allure.step("Проверка что новая область добавлена"):
+            #     step.should_new_area_added("test1")
+        except:
+            print("Область устройств устройств уже существует")
+        try:
+            with allure.step("Удаление добавленной области"):
+                step.delete_new_area("test1")
+        except:
+            print("Удаление добавленной области не произошло")

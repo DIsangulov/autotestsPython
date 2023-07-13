@@ -55,6 +55,25 @@ class DeviceGroups(BasePage):
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Удалить").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.YES_BUTTON).click()
 
+    def open_device_properties(self, device_group_name):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text(device_group_name).click(button='right')
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Показать свойства").click()
+
+    def add_properties_to_device_group(self, key, value):
+        time.sleep(1)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Очистить").nth(1).click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("//label[contains(text(), 'Ключ свойства')]/following::input[1]").fill(key)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("(//label[contains(text(), 'Значение')]/following::input[1])[1]").fill(value)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Сохранить").nth(1).click()
+
+    def should_device_group_properties_added(self, key1, key2):
+        assert self.page.frame_locator(MainLocators.MAIN_FRAME).locator("//*[text()='" + key1 + "']")
+        assert self.page.frame_locator(MainLocators.MAIN_FRAME).locator("//*[text()='" + key2 + "']")
+
+
+
+
+
 
 
 

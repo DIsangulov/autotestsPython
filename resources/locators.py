@@ -48,10 +48,10 @@ class UserGroupsLocators:
 
 class DeviceManagement:
     GROUP_NAME = "#x-auto-72-input"
-    NAME_AREA_DEVICES = "#x-auto-124-input"
-    DESCRIPTION_AREA_DEVICES = "#x-auto-134-input"
-    CHOICE_GROUP_DEVICES = "#x-auto-125-input"
-    CHOICE_GROUP_USERS = "#x-auto-135-input"
+    NAME_AREA_DEVICES = "//label[contains(text(), 'Имя области устройства:')]/following::input[1]"
+    DESCRIPTION_AREA_DEVICES = "//label[contains(text(), 'Описание:')]/following::input[1]"
+    CHOICE_GROUP_DEVICES = "//label[contains(text(), 'Выбор Группы устройств:')]/following::input[1]"
+    CHOICE_GROUP_USERS = "//label[contains(text(), 'Выбор Группы пользователей:')]/following::input[1]"
     ADD_GROUP_DEVICES_BUTTON = "(//td[@class='x-btn-mc'])[4]"
     ADD_GROUP_USERS_BUTTON = "(//td[@class='x-btn-mc'])[6]"
 
