@@ -5,6 +5,7 @@ import allure
 import pytest
 
 from pages.UI._0_Auth.auth_page import AuthPage
+from pages.UI._2_Device_Management.element_type import ElementType
 from pages.UI._3_Administration.system_config_man import SystemConfigMan
 from pages.UI._6_Policy_Control.portal_functions import PortalFunctions
 from pages.UI._6_Policy_Control.session_policy import SessionPolicy
@@ -293,7 +294,6 @@ class TestConfiguringDevicePolicies:
 
 @allure.suite("Базовая настройка Инфраскоп")
 class TestBasicConfiguration:
-    @pytest.mark.skip
     @allure.title("Авторизация, позитивный кейс")
     def test_valid_auth(self, browser):
         step = AuthPage(browser, link)
@@ -357,7 +357,6 @@ class TestBasicConfiguration:
     #         step.add_system_parameter_netright_auth_ldap()
     #     with allure.step("Добавляем параметр sc.portal.otp.enabled/false"):
     #         step.add_system_parameter_sc_portal_otp_enabled()
-
 
     @allure.title("Группы устройств - Создание группы устройств")
     def test_creating_device_group(self, browser):
@@ -430,3 +429,26 @@ class TestBasicConfiguration:
                 step.delete_new_area("test1")
         except:
             print("Удаление добавленной области не произошло")
+
+    @allure.title("Типы элементов - Добавление типа элемента")
+    def test_add_device_types(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = ElementType(browser, link)
+        with allure.step("Переходим в Управление устройствами -> Типы элементов"):
+            step.open_element_type()
+        with allure.step("Добавляем новый тип элемента"):
+            step.add_element_type("test1")
+        try:
+            with allure.step("Нажимаем на Ок, если такой тип элементов уже существует"):
+                step.click_ok_button()
+                print("Данный тип элементов уже сужествует")
+        except:
+            pass
+        with allure.step("Проверяем, что новый тип элемента добавлен"):
+            step.should_element_type_added("test1")
+        # with allure.step("Удаляем новый тип элемента"):
+        #     step.delete_element_type("test1")
