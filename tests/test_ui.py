@@ -358,7 +358,6 @@ class TestBasicConfiguration:
     #     with allure.step("Добавляем параметр sc.portal.otp.enabled/false"):
     #         step.add_system_parameter_sc_portal_otp_enabled()
 
-
     @allure.title("Группы устройств - Создание группы устройств")
     def test_creating_device_group(self, browser):
         step = AuthPage(browser, link)
