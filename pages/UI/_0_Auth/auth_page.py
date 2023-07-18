@@ -12,6 +12,7 @@ class AuthPage(BasePage):
 
     def enter_as_user(self):
         self.page.fill(AuthLocators.LOGIN_INPUT, login)
+        time.sleep(1)
         self.page.fill(AuthLocators.PAS_INPUT, password)
         self.page.click(AuthLocators.ENTER_BUT)
         self.page.click(MainLocators.RUS_BUTTON, timeout=30000)

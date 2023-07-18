@@ -5,6 +5,7 @@ import allure
 import pytest
 
 from pages.UI._0_Auth.auth_page import AuthPage
+from pages.UI._2_Device_Management.devices import Devices
 from pages.UI._2_Device_Management.element_type import ElementType
 from pages.UI._3_Administration.system_config_man import SystemConfigMan
 from pages.UI._6_Policy_Control.portal_functions import PortalFunctions
@@ -13,7 +14,6 @@ from pages.UI._8_User_Management.users_page import UserDefinition
 from pages.UI._8_User_Management.user_groups_page import UserGroupDefinition
 from pages.UI._12_Logging.session_log import SessionLog
 from pages.UI._2_Device_Management.device_groups import DeviceGroups
-
 
 # ________ constants __________
 # region
@@ -66,7 +66,7 @@ class TestUser:
             step.open_user_definition()
         with allure.step("Вводим корректные данные"):
             step.enter_user("autotest_user", "1", "qwerty", "qwerty", "autotest", "autotest", "autotest@test.com",
-                        "89999999999")
+                            "89999999999")
         with allure.step("Нажимаем сохранить"):
             step.click_save()
         with allure.step("Поиск созданного пользователя"):
@@ -399,7 +399,8 @@ class TestBasicConfiguration:
         with allure.step("Добавляем второе свойство"):
             step.add_properties_to_device_group('addManualLoginToUserSelection', 'true')
         with allure.step("Проверяем что свойства добавлены"):
-            step.should_device_group_properties_added('addAssignedCredentialToUserSelection', 'addManualLoginToUserSelection')
+            step.should_device_group_properties_added('addAssignedCredentialToUserSelection',
+                                                      'addManualLoginToUserSelection')
 
     @allure.title("Область групп устройств - Создание области")
     def test_creating_area(self, browser):
@@ -452,3 +453,21 @@ class TestBasicConfiguration:
             step.should_element_type_added("test1")
         # with allure.step("Удаляем новый тип элемента"):
         #     step.delete_element_type("test1")
+
+    @allure.title("Список устройств - Создание устройства")
+    def test_creating_device(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = Devices(browser, link)
+        with allure.step("Переходим в Управление устройствами -> Устройства"):
+            step.open_devices()
+        with allure.step("Переходим на вкладку 'Обнаружить новое устройство'"):
+            step.open_new_device_discovery_tab()
+        with allure.step("Вводим данные в область 'Обнаружить и добавить новое устройство' и сохраняем"):
+            step.detect_and_add_new_device("test1")
+        with allure.step("Проверяем подключение на новое устройство"):
+            step.should_device_detected_and_added("test1")
+

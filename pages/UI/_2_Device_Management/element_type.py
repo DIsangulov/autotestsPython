@@ -1,7 +1,7 @@
 import time
 
 from pages.Helpers.base_page import BasePage
-from resources.locators import MainLocators, DeviceManagement, LoggingLocators
+from resources.locators import MainLocators
 
 
 class ElementType(BasePage):

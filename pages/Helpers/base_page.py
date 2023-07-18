@@ -4,6 +4,7 @@ import time
 import allure
 from playwright.sync_api import Playwright, Page
 
+from resources.locators import MainLocators
 
 
 class BasePage:
@@ -45,5 +46,8 @@ class BasePage:
         for char in input_str:
             d.type(char, delay=100)
             time.sleep(0.5)
+
+    def input_text_field(self, elem_name: str, input_text):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("//label[contains(text(), '"+elem_name+"')]/following::input[1]").fill(input_text)
 
 
