@@ -19,8 +19,8 @@ class UserGroupDefinition(BasePage):
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text(username).nth(1).click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator("//div[@id='x-auto-209']").click()
 
-    def edit_user_group(self, editname):
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(UserGroupsLocators.OPTION_BUT).click()
+    def edit_user_group(self, namegroup, editname):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("(//div[contains(text(), '"+namegroup+"')]/preceding::button)[10]").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Редактировать").click()
         time.sleep(2)
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(UserGroupsLocators.NAME_GROUP_INPUT).fill(editname)
@@ -32,7 +32,7 @@ class UserGroupDefinition(BasePage):
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(UserGroupsLocators.CONFIRM_BUT).click()
 
     def search_user_group(self, namegroup):
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(UserGroupsLocators.NAME_GROUP_INPUT).fill(namegroup)
+        self.input_text_field("Имя группы:", namegroup)
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(UserGroupsLocators.SEARCH_BUT).click()
 
     def should_create_user_group_be_successful(self, namegroup):
