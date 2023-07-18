@@ -44,6 +44,7 @@ class UserGroupsLocators:
     SAVE_BUT = "(//button[@class='x-btn-text '])[6]"
     SEARCH_BUT = "(//button[@class='x-btn-text '])[5]"
     CONFIRM_BUT = "(//button[@class='x-btn-text '])[7]"
+    OPTION_BUT = "(//button[@class='x-btn-text'])[4]"
 
 
 class DeviceManagement:
