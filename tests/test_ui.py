@@ -471,3 +471,59 @@ class TestBasicConfiguration:
         with allure.step("Проверяем подключение на новое устройство"):
             step.should_device_detected_and_added("test1")
 
+    @allure.title("Ключ правил - Добавление ключа правил")
+    def test_add_rules_key(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+        step = SessionPolicy(browser, link)
+        with allure.step("Переходим в Управление политиками -> Политики сессий"):
+            step.open_session_policy()
+        with allure.step("Добавляем новый ключ политики"):
+            step.add_new_policy_key(".*")
+        with allure.step("Удаляем новый ключ политики"):
+            step.delete_new_policy_key(".*")
+
+    @allure.title("Группа правил - Добавление группы правил")
+    def test_add_rules_group(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+        step = SessionPolicy(browser, link)
+        with allure.step("Переходим в Управление политиками -> Политики сессий"):
+            step.open_session_policy()
+        with allure.step("Переходим в Группы политик"):
+            step.open_politic_group()
+        with allure.step("Добавляем новое свойство группы политик"):
+            step.add_policy_group_properties("test1")
+        with allure.step("Удаляем новое свойство группы политик"):
+            step.delete_policy_group_properties("test1")
+
+    @allure.title("Область политики - Добавление области политики")
+    def test_add_policy_area(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        with allure.step("Проверяем что авторизация прошла успешно"):
+            step.should_enter_be_successful()
+        step = SessionPolicy(browser, link)
+        with allure.step("Переходим в Управление политиками -> Политики сессий"):
+            step.open_session_policy()
+        with allure.step("Переходим в Область политики"):
+            step.open_politic_area()
+        with allure.step("Добавляем новую область политики"):
+            step.add_policy_area("test1")
+        with allure.step("Удаляем новую область политики"):
+            step.delete_policy_area("test1")
+
+

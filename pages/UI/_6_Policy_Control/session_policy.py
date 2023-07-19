@@ -13,8 +13,8 @@ class SessionPolicy(BasePage):
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.OK_BUTTON).click()
 
     def add_new_policy_key(self, key_name):
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-183-input").fill(key_name)
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-156-input").fill("description")
+        self.input_text_field("Ключ политики:", key_name)
+        self.input_text_field("Описание", key_name)
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-157-input").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("разрешенная команда").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Linux Server").click()
@@ -39,8 +39,8 @@ class SessionPolicy(BasePage):
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Область политики").click()
 
     def add_policy_group_properties(self, policy_name):
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-234-input").fill(policy_name)
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-235-input").fill("description")
+        self.input_text_field("Имя политики:", policy_name)
+        self.input_text_field("Описание:", policy_name)
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-236-input").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("OPERATION").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text(".* - разрешенная команда").click()
@@ -59,9 +59,9 @@ class SessionPolicy(BasePage):
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.YES_BUTTON).click()
 
     def add_policy_area(self, area_name):
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-234-input").fill(area_name)
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-254-input").fill(area_name)
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-244").click()
+        self.input_text_field("Имя области:", area_name)
+        self.input_text_field("Описание:", area_name)
+        self.input_text_field("Область(и) устройств:", "all")
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("all").nth(0).click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-265").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SAVE_BUTTON).click()

@@ -44,7 +44,9 @@ class Devices(BasePage):
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(
             "//span[contains(text(), 'test1')]/following::span[2]").click(button='right')
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Открыть терминал").click()
-        # assert self.page.locator("//div[@class='col-md-4 logo']").is_visible()
+        time.sleep(2)
+        with self.page.context.expect_page() as p:
+            assert p.value.locator("//div[@class='col-md-4 logo']").is_visible()
 
 
 

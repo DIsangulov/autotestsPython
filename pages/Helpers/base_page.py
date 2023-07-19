@@ -25,12 +25,19 @@ class BasePage:
     def is_element_present(self, selector: str):
         return self.page.query_selector(selector)
 
-    def switch(self, handle_number: int):
+    def switch_tab(self, handle_number: int):
         handles = self.page.context.pages
-        self.page = handles[handle_number]
+        if handle_number < len(handles):
+            self.page = handles[handle_number]
+        else:
+            print(f"Недопустимый номер вкладки: {handle_number}")
+
+    def switch_to_window(self, browser, window_index):
+        browser_contexts = browser.contexts
+        browser_contexts[window_index].bring_to_front()
 
     def close_handle(self, handle_num: int):
-        self.switch(handle_num)
+        self.switch_tab(handle_num)
         self.page.close()
 
     def clear_input(self, selector: str):
