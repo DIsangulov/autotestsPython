@@ -358,6 +358,37 @@ class TestBasicConfiguration:
     #     with allure.step("Добавляем параметр sc.portal.otp.enabled/false"):
     #         step.add_system_parameter_sc_portal_otp_enabled()
 
+    @allure.title("Редактирование группы пользователей, позитивный кейс")
+    def test_edit_user_group(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = UserGroupDefinition(browser, link)
+        with allure.step("Переходим на страницу 'Определение группы пользователей'"):
+            step.open_user_group_definition()
+        with allure.step("Поиск группы пользователей"):
+            step.search_user_group("at_gp")
+        with allure.step("Редактируем группу"):
+            step.edit_user_group("at_gp", "_edit")
+        with allure.step("Нажимаем сохранить"):
+            step.click_save()
+        with allure.step("Нажимаем подтвердить"):
+            step.click_confirm()
+        with allure.step("Поиск отредактированной группы"):
+            step.search_user_group("_edit")
+        with allure.step("Проверяем, что группа отредактирована успешно"):
+            step.should_edit_user_group_be_successful("_edit")
+        with allure.step("Поиск группы пользователей"):
+            step.search_user_group("_edit")
+        with allure.step("Редактируем группу в первоначальный вид"):
+            step.edit_user_group("_edit", "at_gp")
+        with allure.step("Нажимаем сохранить"):
+            step.click_save()
+        with allure.step("Нажимаем подтвердить"):
+            step.click_confirm()
+
     @allure.title("Группы устройств - Создание группы устройств")
     def test_creating_device_group(self, browser):
         step = AuthPage(browser, link)
