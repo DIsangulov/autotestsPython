@@ -1,5 +1,7 @@
 import time
 
+from playwright.sync_api import Frame
+
 from pages.Helpers.base_page import BasePage
 from resources.locators import MainLocators
 
@@ -73,6 +75,16 @@ class SessionPolicy(BasePage):
         time.sleep(3)
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator("//span[contains(text(), '"+area_name+"')]/preceding::button[1]").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.YES_BUTTON).click()
+
+    def should_policy_key_added(self, key_name, element_type):  # здесь подставляем ключ и тип необходимого элемента для проверки
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Очистить").click()
+        self.input_text_field("Ключ политики:", key_name)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SEARCH_BUTTON).click()
+        time.sleep(1)
+        assert self.page.frame_locator(MainLocators.MAIN_FRAME).locator("(//span[contains(text(), '"+key_name+"')]/following::span[contains(text(), '"+element_type+"')])[1]").is_visible()
+
+
+
 
 
 

@@ -6,9 +6,14 @@ from resources.locators import MainLocators
 
 class Devices(BasePage):
 
-    def open_devices(self):
-        self.page.get_by_text("Управление устройствами").click()
+    def open_devices(self, click_count):
+        self.page.get_by_text("Управление устройствами").click(click_count=click_count)
         self.page.get_by_text("Устройства").nth(1).click()
+
+    def open_devices_from_another_tab(self):
+        self.page.locator("//*[text()='Управление устройствами']").click(click_count=2)
+        self.page.locator("(//*[text()='Устройства'])[1]").click()
+
 
     def open_new_device_discovery_tab(self):
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Обнаружить новое устройство").click()
@@ -47,6 +52,27 @@ class Devices(BasePage):
         time.sleep(2)
         with self.page.context.expect_page() as p:
             assert p.value.locator("//div[@class='col-md-4 logo']").is_visible()
+
+    def open_device_folder_by_name(self, folder_name):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(1).locator("//div[@class='x-tree3-node-ct x-tree3 x-component x-unselectable']/descendant::span[contains(text(), '"+folder_name+"')]/preceding-sibling::img[2]").click()
+
+    def connect_to_device(self, device_name):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(1).locator("//*[text()='" + device_name + "']").click(
+            button='right')
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(1).get_by_text("Открыть терминал").click()
+        with self.page.context.expect_page() as window:
+            new_window = window.value
+            new_window.set_viewport_size({"width": 1920, "height": 1080})
+            # terminal = new_window.locator('textarea').nth(0)
+            terminal = new_window.locator("(//textarea[@aria-label='Terminal input'])[1]")
+            terminal.fill('1')
+            # terminal.press('Enter')
+            time.sleep(0.5)
+
+
+
+
+
 
 
 

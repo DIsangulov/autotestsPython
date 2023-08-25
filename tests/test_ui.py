@@ -494,7 +494,7 @@ class TestBasicConfiguration:
             step.enter_as_user()
         step = Devices(browser, link)
         with allure.step("Переходим в Управление устройствами -> Устройства"):
-            step.open_devices()
+            step.open_devices(1)
         with allure.step("Переходим на вкладку 'Обнаружить новое устройство'"):
             step.open_new_device_discovery_tab()
         with allure.step("Вводим данные в область 'Обнаружить и добавить новое устройство' и сохраняем"):
@@ -557,4 +557,23 @@ class TestBasicConfiguration:
         with allure.step("Удаляем новую область политики"):
             step.delete_policy_area("test1")
 
-
+    @allure.title("Список устройств - Подключение к устройству SSH")
+    def test_connect_to_SSH_device(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = SessionPolicy(browser, link)
+        with allure.step("Переходим на страницу Управление политиками -> Политики сессий"):
+            step.open_session_policy()
+        with allure.step("Выполняем проверку что нужный ключ политики существует"):
+            step.should_policy_key_added(".*", "Linux Server")
+        step = Devices(browser, link)
+        with allure.step("Переходим на страницу Управление устройствами -> Устройства"):
+            step.open_devices(2)
+        with allure.step("Раскрываем каталог SSH"):
+            step.open_device_folder_by_name("SSH")
+        with allure.step("Подключаемся к выбранному SSH устройству"):
+            step.connect_to_device("SSH-10.0.5.42")
+            time.sleep(3)
