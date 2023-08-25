@@ -575,5 +575,24 @@ class TestBasicConfiguration:
         with allure.step("Раскрываем каталог SSH"):
             step.open_device_folder_by_name("SSH")
         with allure.step("Подключаемся к выбранному SSH устройству"):
-            step.connect_to_device("SSH-10.0.5.42")
-            time.sleep(3)
+            step.connect_to_device_ssh("SSH-10.0.5.42")
+
+    @allure.title("Список устройств - Подключение к устройству RDP")
+    def test_connect_to_RDP_device(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = SessionPolicy(browser, link)
+        with allure.step("Переходим на страницу Управление политиками -> Политики сессий"):
+            step.open_session_policy()
+        with allure.step("Выполняем проверку что нужный ключ политики существует"):
+            step.should_policy_key_added(".*", "Linux Server")
+        step = Devices(browser, link)
+        with allure.step("Переходим на страницу Управление устройствами -> Устройства"):
+            step.open_devices(2)
+        with allure.step("Раскрываем каталог RDP"):
+            step.open_device_folder_by_name("RDP")
+        with allure.step("Подключаемся к выбранному RDP устройству"):
+            step.connect_to_device_rdp("TestRDP-10.0.5.188")

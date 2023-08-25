@@ -56,19 +56,31 @@ class Devices(BasePage):
     def open_device_folder_by_name(self, folder_name):
         self.page.frame_locator(MainLocators.MAIN_FRAME).nth(1).locator("//div[@class='x-tree3-node-ct x-tree3 x-component x-unselectable']/descendant::span[contains(text(), '"+folder_name+"')]/preceding-sibling::img[2]").click()
 
-    def connect_to_device(self, device_name):
+    def connect_to_device_ssh(self, device_name):
         self.page.frame_locator(MainLocators.MAIN_FRAME).nth(1).locator("//*[text()='" + device_name + "']").click(
             button='right')
         self.page.frame_locator(MainLocators.MAIN_FRAME).nth(1).get_by_text("Открыть терминал").click()
         with self.page.context.expect_page() as window:
             new_window = window.value
             new_window.set_viewport_size({"width": 1920, "height": 1080})
-            # terminal = new_window.locator('textarea').nth(0)
-            terminal = new_window.locator("(//textarea[@aria-label='Terminal input'])[1]")
-            terminal.fill('1')
-            # terminal.press('Enter')
-            time.sleep(0.5)
+            time.sleep(3)
+            new_window.mouse.click(x=200, y=400, button='left')
+            time.sleep(2)
+            new_window.keyboard.press("1")
+            time.sleep(1)
+            new_window.keyboard.press("Enter")
+            time.sleep(5)
 
+    def connect_to_device_rdp(self, device_name):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(1).locator("//*[text()='" + device_name + "']").click(
+            button='right')
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(1).get_by_text("Открыть удаленный рабочий стол").click()
+        with self.page.context.expect_page() as window:
+            new_window = window.value
+            new_window.set_viewport_size({"width": 1920, "height": 1080})
+            new_window.locator("//summary[@title='Desktop']").click()
+            new_window.locator("//a[@title='Desktop']").click()
+            new_window.keyboard.press('Meta')
 
 
 
