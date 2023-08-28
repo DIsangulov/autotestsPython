@@ -82,7 +82,28 @@ class Devices(BasePage):
             new_window.locator("//a[@title='Desktop']").click()
             new_window.keyboard.press('Meta')
 
-
+    def connect_to_device_ssh_for_check_active_session(self, device_name):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(1).locator("//*[text()='" + device_name + "']").click(
+            button='right')
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(1).get_by_text("Открыть терминал").click()
+        with self.page.context.expect_page() as window:
+            new_window = window.value
+            new_window.set_viewport_size({"width": 1920, "height": 1080})
+            time.sleep(3)
+            new_window.mouse.click(x=200, y=400, button='left')
+            time.sleep(2)
+            new_window.keyboard.press("1")
+            time.sleep(1)
+            new_window.keyboard.press("Enter")
+            time.sleep(5)
+            new_window.keyboard.press("p")
+            time.sleep(1)
+            new_window.keyboard.press("w")
+            time.sleep(1)
+            new_window.keyboard.press("d")
+            time.sleep(1)
+            new_window.keyboard.press("Enter")
+            time.sleep(3)
 
 
 

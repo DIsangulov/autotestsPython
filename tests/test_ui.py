@@ -8,6 +8,7 @@ from pages.UI._0_Auth.auth_page import AuthPage
 from pages.UI._2_Device_Management.devices import Devices
 from pages.UI._2_Device_Management.element_type import ElementType
 from pages.UI._3_Administration.system_config_man import SystemConfigMan
+from pages.UI._6_Policy_Control.active_sessions import ActiveSessions
 from pages.UI._6_Policy_Control.portal_functions import PortalFunctions
 from pages.UI._6_Policy_Control.session_policy import SessionPolicy
 from pages.UI._8_User_Management.users_page import UserDefinition
@@ -596,3 +597,28 @@ class TestBasicConfiguration:
             step.open_device_folder_by_name("RDP")
         with allure.step("Подключаемся к выбранному RDP устройству"):
             step.connect_to_device_rdp("TestRDP-10.0.5.188")
+
+    @allure.title("Показ деталей при активной сессии")
+    def test_showing_details_during_active_session(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = SessionPolicy(browser, link)
+        with allure.step("Переходим на страницу Управление политиками -> Политики сессий"):
+            step.open_session_policy()
+        with allure.step("Выполняем проверку что нужный ключ политики существует"):
+            step.should_policy_key_added(".*", "Linux Server")
+        step = Devices(browser, link)
+        with allure.step("Переходим на страницу Управление устройствами -> Устройства"):
+            step.open_devices(2)
+        with allure.step("Раскрываем каталог SSH"):
+            step.open_device_folder_by_name("SSH")
+        with allure.step("Подключаемся к выбранному SSH устройству и выполняем команнду pwd"):
+            step.connect_to_device_ssh_for_check_active_session("SSH-10.0.5.42")
+        step = ActiveSessions(browser, link)
+        with allure.step("Переходим в Управление политиками -> Активные сессии"):
+            step.open_active_sessions()
+        with allure.step("Выполняем поиск и открываем детали активной SSH сессии и проверяем, что есть запись о выполненной команде pwd"):
+            step.viewing_information_about_active_SSH_session()
