@@ -670,5 +670,55 @@ class TestBasicConfiguration:
         step = ActiveSessions(browser, link)
         with allure.step("Переходим в Управление политиками -> Активные сессии"):
             step.open_active_sessions()
-        with allure.step("Воспроизводим сессию и убеждаемся что окно воспроизведения терминала открыто"):
+        with allure.step("Подключаемся к активной сессии и передаем в терминал команду pwd"):
             step.connect_to_active_SSH_session()
+
+    @allure.title("Отправка сообщения в активную сессию")
+    def test_showing_session_during_active_session(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = SessionPolicy(browser, link)
+        with allure.step("Переходим на страницу Управление политиками -> Политики сессий"):
+            step.open_session_policy()
+        with allure.step("Выполняем проверку что нужный ключ политики существует"):
+            step.should_policy_key_added(".*", "Linux Server")
+        step = Devices(browser, link)
+        with allure.step("Переходим на страницу Управление устройствами -> Устройства"):
+            step.open_devices(2)
+        with allure.step("Раскрываем каталог SSH"):
+            step.open_device_folder_by_name("SSH")
+        with allure.step("Подключаемся к выбранному SSH устройству и выполняем команнду pwd"):
+            step.connect_to_device_ssh_for_check_active_session("SSH-10.0.5.42")
+        step = ActiveSessions(browser, link)
+        with allure.step("Переходим в Управление политиками -> Активные сессии"):
+            step.open_active_sessions()
+        with allure.step("Выбираем активную сессию и отправляем в нее сообщение и проверяем что сообщение успешно отправлено"):
+            step.send_message_to_active_SSH_session()
+
+    @allure.title("Завершение активной сессии")
+    def test_showing_session_during_active_session(self, browser):
+        step = AuthPage(browser, link)
+        with allure.step("Заходим на тестовый стенд"):
+            step.open()
+        with allure.step("Вводим корректные логин и пароль"):
+            step.enter_as_user()
+        step = SessionPolicy(browser, link)
+        with allure.step("Переходим на страницу Управление политиками -> Политики сессий"):
+            step.open_session_policy()
+        with allure.step("Выполняем проверку что нужный ключ политики существует"):
+            step.should_policy_key_added(".*", "Linux Server")
+        step = Devices(browser, link)
+        with allure.step("Переходим на страницу Управление устройствами -> Устройства"):
+            step.open_devices(2)
+        with allure.step("Раскрываем каталог SSH"):
+            step.open_device_folder_by_name("SSH")
+        with allure.step("Подключаемся к выбранному SSH устройству и выполняем команнду pwd"):
+            step.connect_to_device_ssh_for_check_active_session("SSH-10.0.5.42")
+        step = ActiveSessions(browser, link)
+        with allure.step("Переходим в Управление политиками -> Активные сессии"):
+            step.open_active_sessions()
+        with allure.step("Выбираем активную сессию и завершаем ее"):
+            step.close_active_SSH_session()

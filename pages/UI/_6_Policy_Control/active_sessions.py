@@ -44,6 +44,23 @@ class ActiveSessions(BasePage):
             time.sleep(1)
             new_window.keyboard.press("Enter")
 
+    def send_message_to_active_SSH_session(self):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(2).get_by_text("Поиск").nth(1).click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(2).locator("(//div[contains(text(), 'SSH')]/preceding::button[1])[2]").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(2).locator("//*[text()='Отправить сообщение']").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(2).locator("//textarea").fill("Infrascope")
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(2).locator("//*[text()='Отправить']").click()
+        time.sleep(1)
+        assert self.page.frame_locator(MainLocators.MAIN_FRAME).nth(2).locator("//*[text()='Операция успешна']").is_visible()
+
+    def close_active_SSH_session(self):
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(2).get_by_text("Поиск").nth(1).click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(2).locator("(//div[contains(text(), 'SSH')]/preceding::button[1])[2]").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(2).get_by_text("Завершить сессию").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).nth(2).get_by_text("Поиск").nth(1).click()
+        time.sleep(2)
+        assert not self.page.frame_locator(MainLocators.MAIN_FRAME).nth(2).locator("(//div[contains(text(), 'SSH')]/preceding::button[1])[2]").is_visible()
+
 
 
 
