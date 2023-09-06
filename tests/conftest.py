@@ -39,9 +39,9 @@ def take_screenshot(page):
                        attachment_type=allure.attachment_type.PNG)
 
 
-@pytest.fixture(scope='function')
-def ssh():
-    ssh = SSH(host='10.0.5.27')
-    ssh.connect()
-    yield ssh
-    ssh.close_connection()
+# @pytest.fixture(scope='function')
+# def ssh():
+#     ssh = SSH(host='10.0.5.27')
+#     ssh.connect()
+#     yield ssh
+#     ssh.close_connection()
