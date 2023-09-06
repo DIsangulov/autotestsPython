@@ -1,9 +1,10 @@
 import datetime
 
 import allure
+import paramiko
 import pytest
 from playwright.sync_api import sync_playwright
-
+from ssh_draft.ssh import SSH
 
 # @pytest.fixture(scope='function')
 # def browser():
@@ -36,3 +37,11 @@ def take_screenshot(page):
         file.write(screenshot)
     allure.attach.file(screenshot_path, name=f"screenshot_{current_datetime}",
                        attachment_type=allure.attachment_type.PNG)
+
+
+@pytest.fixture(scope='function')
+def ssh():
+    ssh = SSH(host='10.0.5.27')
+    ssh.connect()
+    yield ssh
+    ssh.close_connection()

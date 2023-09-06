@@ -6,3 +6,5 @@ allure-pytest
 jsonschema
 docker
 playwright~=1.35.0
+
+paramiko~=3.3.1
