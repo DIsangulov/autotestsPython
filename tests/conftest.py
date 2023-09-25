@@ -6,6 +6,7 @@ import pytest
 from playwright.sync_api import sync_playwright
 from ssh_draft.ssh import SSH
 
+
 # @pytest.fixture(scope='function')
 # def browser():
 #     with sync_playwright() as playwright:
@@ -39,9 +40,9 @@ def take_screenshot(page):
                        attachment_type=allure.attachment_type.PNG)
 
 
-# @pytest.fixture(scope='function')
-# def ssh():
-#     ssh = SSH(host='10.0.5.27')
-#     ssh.connect()
-#     yield ssh
-#     ssh.close_connection()
+@pytest.fixture(scope='function')
+def ssh():
+    ssh = SSH(host='10.130.6.11')
+    ssh.connect()
+    yield ssh
+    ssh.close_connection()
