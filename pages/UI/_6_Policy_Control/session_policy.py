@@ -43,11 +43,12 @@ class SessionPolicy(BasePage):
     def add_policy_group_properties(self, policy_name):
         self.input_text_field("Имя политики:", policy_name)
         self.input_text_field("Описание:", policy_name)
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-236-input").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("//label[contains(text(), 'Режим работы:')]/following::input[1]").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("OPERATION").click()
-        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text(".* - разрешенная команда").click()
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text(".* - разрешенная команда").nth(0).click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-249").click()
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-258").click()
+        time.sleep(1)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator("//label[contains(text(), 'Действие:')]/following::input[1]").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Generate Error").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SAVE_BUTTON).click()
 
@@ -63,8 +64,8 @@ class SessionPolicy(BasePage):
     def add_policy_area(self, area_name):
         self.input_text_field("Имя области:", area_name)
         self.input_text_field("Описание:", area_name)
-        self.input_text_field("Область(и) устройств:", "all")
-        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("all").nth(0).click()
+        self.input_text_field("Область(и) устройств:", "test1")
+        self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("test1").nth(0).click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator("#x-auto-265").click()
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SAVE_BUTTON).click()
 

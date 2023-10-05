@@ -12,7 +12,7 @@ class SSH:
 
     def connect(self):
         self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        self.ssh.connect(hostname=self.host, username='pamuser', password='1q2w3e4r5t')
+        self.ssh.connect(hostname="10.130.6.11", username='pamuser', password='1q2w3e4r5t')
         return self.ssh
 
     def close_connection(self):

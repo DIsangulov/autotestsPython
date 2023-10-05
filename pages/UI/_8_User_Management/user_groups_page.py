@@ -32,8 +32,8 @@ class UserGroupDefinition(BasePage):
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(UserGroupsLocators.CONFIRM_BUT).click()
 
     def search_user_group(self, namegroup):
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(UserGroupsLocators.NAME_GROUP_INPUT).fill(namegroup)
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(UserGroupsLocators.SEARCH_BUT).click()
+        self.input_text_field("Имя группы:", namegroup)
+        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SEARCH_BUTTON).click()
 
     def should_create_user_group_be_successful(self, namegroup):
         try:

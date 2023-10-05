@@ -23,7 +23,8 @@ from pages.UI._2_Device_Management.device_groups import DeviceGroups
 
 # ________ constants __________
 # region
-link = os.environ.get('TARGET_URL', "https://10.130.6.11")
+# link = os.environ.get('TARGET_URL', "https://10.130.6.11")
+link = "https://10.130.6.11"
 
 
 # endregion

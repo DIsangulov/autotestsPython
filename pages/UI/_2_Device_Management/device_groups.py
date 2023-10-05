@@ -14,7 +14,7 @@ class DeviceGroups(BasePage):
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(DeviceManagement.GROUP_NAME).fill(group_name)
         self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.SAVE_BUTTON).click()
         time.sleep(1)
-        self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.REFRESH_PAGE).click()
+        # self.page.frame_locator(MainLocators.MAIN_FRAME).locator(MainLocators.REFRESH_PAGE).click()
 
     def click_ok_button(self):
         # self.page.frame_locator(MainLocators.MAIN_FRAME).get_by_text("Ok").click()

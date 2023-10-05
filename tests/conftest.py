@@ -1,10 +1,13 @@
 import datetime
+import os
 
 import allure
 import paramiko
 import pytest
 from playwright.sync_api import sync_playwright
 from ssh_draft.ssh import SSH
+
+link = os.environ.get('TARGET_URL', "https://10.130.6.11")
 
 
 # @pytest.fixture(scope='function')
@@ -42,7 +45,7 @@ def take_screenshot(page):
 
 @pytest.fixture(scope='function')
 def ssh():
-    ssh = SSH(host='10.130.6.11')
+    ssh = SSH(host=link)
     ssh.connect()
     yield ssh
     ssh.close_connection()

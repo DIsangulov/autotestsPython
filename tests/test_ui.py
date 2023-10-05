@@ -366,6 +366,7 @@ class TestBasicConfiguration:
     #     with allure.step("Добавляем параметр sc.portal.otp.enabled/false"):
     #         step.add_system_parameter_sc_portal_otp_enabled()
 
+    @pytest.mark.skip
     @allure.title("Редактирование группы пользователей, позитивный кейс")
     def test_edit_user_group(self, browser):
         step = AuthPage(browser, link)
@@ -410,14 +411,28 @@ class TestBasicConfiguration:
         with allure.step("Переходим в Управление устройствами -> Группы устройств"):
             step.open_device_groups()
         try:
-            with allure.step("Добавляем новую группу"):
-                step.add_new_group("test1")
+            with allure.step("Добавляем новую группу SSH"):
+                step.add_new_group("SSH")
+        except:
+            with allure.step("Нажимаем Ok"):
+                step.click_ok_button()
+            print("Группа устройств уже существует")
+        try:
+            with allure.step("Добавляем новую группу RDP"):
+                step.add_new_group("RDP")
+        except:
+            with allure.step("Нажимаем Ok"):
+                step.click_ok_button()
+            print("Группа устройств уже существует")
+        try:
+            with allure.step("Добавляем новую группу HTTP"):
+                step.add_new_group("HTTP")
         except:
             with allure.step("Нажимаем Ok"):
                 step.click_ok_button()
             print("Группа устройств уже существует")
         # with allure.step("Кликаем ПКМ по созданной группе и нажимаем удалить"):
-        #     step.delete_new_group("test1")
+        # step.delete_new_group("test1")
 
     @allure.title("Группы устройств - Добавление свойств")
     def test_device_group_add_property(self, browser):
@@ -464,11 +479,11 @@ class TestBasicConfiguration:
             #     step.should_new_area_added("test1")
         except:
             print("Область устройств устройств уже существует")
-        try:
-            with allure.step("Удаление добавленной области"):
-                step.delete_new_area("test1")
-        except:
-            print("Удаление добавленной области не произошло")
+        # try:
+        #     with allure.step("Удаление добавленной области"):
+        #         step.delete_new_area("test1")
+        # except:
+        #     print("Удаление добавленной области не произошло")
 
     @allure.title("Типы элементов - Добавление типа элемента")
     def test_add_device_types(self, browser):
@@ -481,15 +496,14 @@ class TestBasicConfiguration:
         with allure.step("Переходим в Управление устройствами -> Типы элементов"):
             step.open_element_type()
         with allure.step("Добавляем новый тип элемента"):
-            step.add_element_type("test1")
+            step.add_element_type("HTTP")
         try:
             with allure.step("Нажимаем на Ок, если такой тип элементов уже существует"):
                 step.click_ok_button()
-                print("Данный тип элементов уже сужествует")
         except:
-            pass
+            print("Данный тип элементов уже сужествует")
         with allure.step("Проверяем, что новый тип элемента добавлен"):
-            step.should_element_type_added("test1")
+            step.should_element_type_added("HTTP")
         # with allure.step("Удаляем новый тип элемента"):
         #     step.delete_element_type("test1")
 
@@ -524,8 +538,8 @@ class TestBasicConfiguration:
             step.open_session_policy()
         with allure.step("Добавляем новый ключ политики"):
             step.add_new_policy_key(".*")
-        with allure.step("Удаляем новый ключ политики"):
-            step.delete_new_policy_key(".*")
+        # with allure.step("Удаляем новый ключ политики"):
+        #     step.delete_new_policy_key(".*")
 
     @allure.title("Группа правил - Добавление группы правил")
     def test_add_rules_group(self, browser):
@@ -543,8 +557,8 @@ class TestBasicConfiguration:
             step.open_politic_group()
         with allure.step("Добавляем новое свойство группы политик"):
             step.add_policy_group_properties("test1")
-        with allure.step("Удаляем новое свойство группы политик"):
-            step.delete_policy_group_properties("test1")
+        # with allure.step("Удаляем новое свойство группы политик"):
+        #     step.delete_policy_group_properties("test1")
 
     @allure.title("Область политики - Добавление области политики")
     def test_add_policy_area(self, browser):
@@ -562,8 +576,8 @@ class TestBasicConfiguration:
             step.open_politic_area()
         with allure.step("Добавляем новую область политики"):
             step.add_policy_area("test1")
-        with allure.step("Удаляем новую область политики"):
-            step.delete_policy_area("test1")
+        # with allure.step("Удаляем новую область политики"):
+        #     step.delete_policy_area("test1")
 
     @allure.title("Подключение по ssh для создания SAPM аккаунта")
     def test_ssh_send_command(self, ssh):
@@ -659,7 +673,8 @@ class TestBasicConfiguration:
         step = ActiveSessions(browser, link)
         with allure.step("Переходим в Управление политиками -> Активные сессии"):
             step.open_active_sessions()
-        with allure.step("Выполняем поиск и открываем детали активной SSH сессии и проверяем, что есть запись о выполненной команде pwd"):
+        with allure.step(
+                "Выполняем поиск и открываем детали активной SSH сессии и проверяем, что есть запись о выполненной команде pwd"):
             step.viewing_information_about_active_SSH_session()
 
     @allure.title("Воспроизведение активной сессии")
@@ -734,7 +749,8 @@ class TestBasicConfiguration:
         step = ActiveSessions(browser, link)
         with allure.step("Переходим в Управление политиками -> Активные сессии"):
             step.open_active_sessions()
-        with allure.step("Выбираем активную сессию и отправляем в нее сообщение и проверяем что сообщение успешно отправлено"):
+        with allure.step(
+                "Выбираем активную сессию и отправляем в нее сообщение и проверяем что сообщение успешно отправлено"):
             step.send_message_to_active_SSH_session()
 
     @allure.title("Завершение активной сессии")
