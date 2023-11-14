@@ -366,7 +366,6 @@ class TestBasicConfiguration:
     #     with allure.step("Добавляем параметр sc.portal.otp.enabled/false"):
     #         step.add_system_parameter_sc_portal_otp_enabled()
 
-    @pytest.mark.skip
     @allure.title("Редактирование группы пользователей, позитивный кейс")
     def test_edit_user_group(self, browser):
         step = AuthPage(browser, link)

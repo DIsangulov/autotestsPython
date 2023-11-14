@@ -6,16 +6,15 @@ stages:          # List of stages for jobs, and their order of execution
 
 run_tests_ui:
   image: registry.ngrsoftlab.ru:8888/ngr-chrome:v2
-  #image: registry.ngrsoftlab.ru:8888/ngr-yandex
 
   stage: test
-
   before_script:
-    - pip install -r requirements.txt
+      - pip install -r requirements.txt
 
   script:
-    #- pytest -v -s --alluredir=./allure-results tests/test_api.py -p no:warnings
-    - pytest --alluredir=./allure-results tests/test_ui.py
+      - pytest --testit -v -s --alluredir=./allure-results tests/test_ui.py -p no:warnings
+#      - pytest --alluredir=./allure-results tests/test_ui.py
+
 
   allow_failure: true
 
