@@ -10,4 +10,3 @@ paramiko~=3.3.1
 faker
 testit-api-client
 testit-adapter-pytest
-testit-allure-adaptor
