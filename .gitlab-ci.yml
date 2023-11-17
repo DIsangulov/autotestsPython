@@ -13,6 +13,7 @@ run_tests_ui:
 
   script:
       - pytest --testit -v -s --alluredir=./allure-results tests/test_ui.py -p no:warnings
+      - testit -rd ./allure-results
 #      - pytest --alluredir=./allure-results tests/test_ui.py
 
 
