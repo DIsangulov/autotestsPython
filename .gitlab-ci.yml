@@ -47,6 +47,7 @@ history_job: # Название job
   artifacts:
     paths:
       - ./allure-results # Сохраняем данные
+      - testit -rd ./allure-results # Отправляем в TestIT
     expire_in: 1 day
   rules:
     - when: always # Сохранять всегда
@@ -59,7 +60,7 @@ allure_job: # Название job
   image: registry.ngrsoftlab.ru:8888/frankescobar
 
   script:
-    - testit -rd ./allure-results
+    # - testit -rd ./allure-results # Ломает джобы отчета
     - allure generate -c ./allure-results -o ./allure-report # Генерируем отчет из ./allure-results внутрь папки ./allure-report
 
   artifacts:
