@@ -12,9 +12,9 @@ run_tests_ui:
       - pip install -r requirements.txt
 
   script:
-#      - pytest --testit -v -s --alluredir=./allure-results tests/test_ui.py -p no:warnings
+      - pytest --testit -v -s --alluredir=./allure-results tests/test_ui.py -p no:warnings
 #      - testit -rd ./allure-results
-       - pytest --testit -v -s --alluredir=./allure-results tests/test_ui.py -p no:warnings -rd ./allure-results
+#       - pytest --testit -v -s --alluredir=./allure-results tests/test_ui.py -p no:warnings -rd ./allure-results
 #      - pytest --alluredir=./allure-results tests/test_ui.py
 
 
