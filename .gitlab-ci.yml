@@ -13,9 +13,11 @@ run_tests_ui:
 
   script:
       - pytest --testit -v -s --alluredir=./allure-results tests/test_ui.py -p no:warnings
-#      - testit -rd ./allure-results
+      - testit --resultsdir allure-results --testrunname AllureRun
+      - testit --resultsdir allure-results --testrunid=${TEST_RUN_ID}
+#       - testit -rd ./allure-results
 #       - pytest --testit -v -s --alluredir=./allure-results tests/test_ui.py -p no:warnings -rd ./allure-results
-#      - pytest --alluredir=./allure-results tests/test_ui.py
+#       - pytest --alluredir=./allure-results tests/test_ui.py
 
 
   allow_failure: true
