@@ -13,8 +13,8 @@ run_tests_ui:
 
   script:
       - pytest --testit -v -s --alluredir=./allure-results tests/test_ui.py -p no:warnings
-      - testit --url $URL --privatetoken=${PRIVATE_TOKEN} --projectid=${PROJECT_ID} --configurationid√${CONFIGURATION_ID}
-      - testit --resultsdir allure-results --testrunid=${TEST_RUN_ID}
+      - testit --url $URL --privatetoken=${PRIVATE_TOKEN} --projectid=${PROJECT_ID} --configurationid=${CONFIGURATION_ID}
+      - testit --resultsdir allure-results #--testrunid=${TEST_RUN_ID}
 #       - testit -rd ./allure-results
 #       - pytest --testit -v -s --alluredir=./allure-results tests/test_ui.py -p no:warnings -rd ./allure-results
 #       - pytest --alluredir=./allure-results tests/test_ui.py
