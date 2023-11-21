@@ -11,4 +11,4 @@ faker
 testit-api-client
 testit-adapter-pytest
 #testit-importer-allure
-testit-allure-adaptor
+#testit-allure-adaptor
