@@ -20,8 +20,8 @@ run_tests_ui:
 #       - pytest --alluredir=./allure-results tests/test_ui.py
 
   after_script:
-#    - testit --url=&{$URL} --privatetoken=${PRIVATE_TOKEN} --projectid=${PROJECT_ID} --configurationid=${CONFIGURATION_ID}
-    - testit -u http://testit.ngrsoftlab.ru -pt RXNEa0dHZVZXTjlZTEtpZjE0 -pi 3d555fd2-8f54-47a5-9678-2f7dc0bb7dbd -ci 6380c93c-e960-471f-a308-480faffc61f0
+    - testit --url=&{$URL} --privatetoken=${PRIVATE_TOKEN} --projectid=${PROJECT_ID} --configurationid=${CONFIGURATION_ID}
+#    - testit -u http://testit.ngrsoftlab.ru -pt RXNEa0dHZVZXTjlZTEtpZjE0 -pi 3d555fd2-8f54-47a5-9678-2f7dc0bb7dbd -ci 6380c93c-e960-471f-a308-480faffc61f0
     - testit --resultsdir allure-results
 
 
