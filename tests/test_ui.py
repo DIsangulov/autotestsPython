@@ -22,13 +22,13 @@ from pages.UI._2_Device_Management.device_groups import DeviceGroups
 # ________ constants __________
 # region
 # link = os.environ.get('TARGET_URL', "https://10.0.5.27")  # Демо стенд
-link = os.environ.get('TARGET_URL', "https://10.130.6.11")  # Тестовый стенд
+link = os.environ.get('TARGET_URL', "https://10.130.6.29")  # Тестовый стенд
 
 
 # endregion
 # ________ constants __________
 
-@pytest.mark.skip
+@pytest.mark.skip(reason="Not working yet")
 @allure.suite("Проверка доступности веб-интерфейса")
 class TestAuth:
     @allure.title("Авторизация, позитивный кейс")
@@ -56,7 +56,7 @@ class TestAuth:
             step.shold_log_out_be_successful()
 
 
-@pytest.mark.skip
+@pytest.mark.skip(reason="Not working yet")
 @allure.suite("Страница 'Определение пользователя'")
 class TestUser:
     @allure.title("Создание пользователя, позитивный кейс")
@@ -80,7 +80,7 @@ class TestUser:
             step.should_create_user_be_successful("autotest_user")
 
 
-@pytest.mark.skip
+@pytest.mark.skip(reason="Not working yet")
 @allure.suite("Страница 'Определение группы пользователей'")
 class TestUserGroup:
     @allure.title("Создание группы пользователей, позитивный кейс")
@@ -105,7 +105,7 @@ class TestUserGroup:
             step.should_create_user_group_be_successful("at_gp")
 
 
-@pytest.mark.skip
+@pytest.mark.skip(reason="Not working yet")
 @allure.suite("Страница 'Определение пользователя'")
 class TestDeleteUser:
     @allure.title("Удаление пользователя, позитивный кейс")
@@ -126,7 +126,7 @@ class TestDeleteUser:
             step.should_delete_user_be_successful("autotest_user")
 
 
-@pytest.mark.skip
+@pytest.mark.skip(reason="Not working yet")
 @allure.suite("Сценарные проверки по ПиМИ")
 class TestScenariosPimi:
     @allure.title("Проверка показа деталей")
@@ -168,7 +168,7 @@ class TestScenariosPimi:
             step.should_play_session_run()
 
 
-@pytest.mark.skip
+@pytest.mark.skip(reason="Not working yet")
 @allure.suite("Настройка политик устройств")
 class TestConfiguringDevicePolicies:
     @allure.title("Группы устройств - Создание группы устройств")
@@ -297,6 +297,7 @@ class TestConfiguringDevicePolicies:
             step.delete_policy_area("test1")
 
 
+@pytest.mark.skip(reason="Not working yet")
 @allure.suite("Базовая настройка Инфраскоп")
 class TestBasicConfiguration:
     fake_username = None

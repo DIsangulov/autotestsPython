@@ -1,36 +1,49 @@
+import contextlib
 import datetime
+import logging
 import os
+from http.client import HTTPConnection
 
 import allure
 import paramiko
 import pytest
+import requests
 from playwright.sync_api import sync_playwright
+
+from req.helpers.base_req import BaseReq
 from ssh_draft.ssh import SSH
 
-link = os.environ.get('TARGET_URL', "https://10.130.6.11")
-
-
-# @pytest.fixture(scope='function')
-# def browser():
-#     with sync_playwright() as playwright:
-#         browser = playwright.chromium.launch(channel="chrome", headless=False)
-#         context = browser.new_context(ignore_https_errors=True, viewport={"width": 1920, "height": 1080})
-#         page = context.new_page()
-#         yield page
-#         page.close()
-#         browser.close()
+host = os.environ.get('TARGET_URL', "https://10.130.6.29")
+sess = requests.Session()
 
 
 @pytest.fixture(scope='function')
 def browser():
     with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(channel="chrome", headless=True)
+        browser = playwright.chromium.launch(channel="chrome", headless=False)
         context = browser.new_context(ignore_https_errors=True, viewport={"width": 1920, "height": 1080})
         page = context.new_page()
         yield page
         take_screenshot(page)
         page.close()
         browser.close()
+
+# @pytest.fixture(scope='function')
+# def get_and_set_csrf():
+#     req = BaseReq(sess, host) #sess,
+#     req.get_csrf_token()
+#     yield req
+
+# @pytest.fixture(scope='session')
+# def csrftoken():
+#     resp = requests.get(f"{host}/user/login")
+#     # Извлекаем куки из ответа
+#     xsrf_cookie = resp.cookies.get('XSRF-TOKEN')
+#     # Проверяем, существует ли куки и возвращаем его значение
+#     if xsrf_cookie:
+#         return xsrf_cookie
+#     else:
+#         pytest.fail("XSRF-TOKEN cookie not found in the response")
 
 
 def take_screenshot(page):
@@ -49,3 +62,42 @@ def ssh():
     ssh.connect()
     yield ssh
     ssh.close_connection()
+
+
+
+def debug_requests_on():
+    """Switches on logging of the requests module."""
+    HTTPConnection.debuglevel = 1
+
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.DEBUG)
+    requests_log = logging.getLogger("requests.packages.urllib3")
+    requests_log.setLevel(logging.DEBUG)
+    requests_log.propagate = True
+
+
+def debug_requests_off():
+    """Switches off logging of the requests module, might be some side-effects"""
+    HTTPConnection.debuglevel = 0
+
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.WARNING)
+    root_logger.handlers = []
+    requests_log = logging.getLogger("requests.packages.urllib3")
+    requests_log.setLevel(logging.WARNING)
+    requests_log.propagate = False
+
+
+@contextlib.contextmanager
+def debug_requests():
+    """Use with 'with'!"""
+    debug_requests_on()
+    yield
+    debug_requests_off()
+
+
+@pytest.fixture(autouse=True)
+def enable_debug_requests():
+    """Фикстура для включения логирования запросов для каждого теста."""
+    with debug_requests():
+        yield
