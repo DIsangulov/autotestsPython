@@ -1,21 +1,13 @@
-import requests
-
-URL = "https://10.130.6.29/aioc-rest-web/rest/login"
-
-
-
-
 class BaseReq:
-    def __init__(self, sess, host): # , sess
+    def __init__(self, sess, host):
         self.sess = sess
         self.host = host
 
-    def get_csrf_token(self):
-        # Здесь вы можете сделать запрос, чтобы получить токен
-        resp = self.sess.get(f"{self.host}/aioc-rest-web/rest/get-csrf-token", verify=False)
-        csrf_token = resp.cookies.get('XSRF-TOKEN')
-        print(f"CSRF Token obtained: {csrf_token}")
-        return csrf_token
+    def auth(self, username="admin", password="1q2w3e4r5t"):
+        jsn = {"username": username, "password": password}
+        resp = self.sess.post(f"{self.host}/aioc-rest-web/rest/jwt/login", json=jsn, verify=False)
+        token = resp.json().get("access_token")
+        return token
 
 
 

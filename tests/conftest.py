@@ -28,22 +28,11 @@ def browser():
         page.close()
         browser.close()
 
-# @pytest.fixture(scope='function')
-# def get_and_set_csrf():
-#     req = BaseReq(sess, host) #sess,
-#     req.get_csrf_token()
-#     yield req
-
-# @pytest.fixture(scope='session')
-# def csrftoken():
-#     resp = requests.get(f"{host}/user/login")
-#     # Извлекаем куки из ответа
-#     xsrf_cookie = resp.cookies.get('XSRF-TOKEN')
-#     # Проверяем, существует ли куки и возвращаем его значение
-#     if xsrf_cookie:
-#         return xsrf_cookie
-#     else:
-#         pytest.fail("XSRF-TOKEN cookie not found in the response")
+@pytest.fixture(scope='class')
+def auth_api():
+    req = BaseReq(sess, host)
+    req.auth()
+    yield req
 
 
 def take_screenshot(page):
